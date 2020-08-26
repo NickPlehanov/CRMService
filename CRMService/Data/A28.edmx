@@ -1,0 +1,885 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="A28Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="EP">
+          <Key>
+            <PropertyRef Name="ProcID" />
+          </Key>
+          <Property Name="ProcID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcGroupID" Type="int" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="ComponentGUID" Type="nvarchar" MaxLength="128" />
+          <Property Name="ProcType" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="128" />
+          <Property Name="InternalNumber" Type="int" />
+          <Property Name="Enabled" Type="bit" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="RCFilterInterval" Type="int" />
+          <Property Name="UseAnyEvent" Type="bit" />
+          <Property Name="ActivationMode" Type="int" />
+          <Property Name="AnyEventForActivate" Type="bit" />
+          <Property Name="ActivationInterval" Type="int" />
+          <Property Name="AnyEventForDeactivate" Type="bit" />
+          <Property Name="Params" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="EPCustomer">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecordType" Type="int" Nullable="false" />
+          <Property Name="OwnerRecordID" Type="int" Nullable="false" />
+          <Property Name="CustomerGroupID" Type="int" />
+          <Property Name="BeginningNumber" Type="int" />
+          <Property Name="EndNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="EventTemp">
+          <Key>
+            <PropertyRef Name="EventTemplateID" />
+          </Key>
+          <Property Name="EventTemplateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="EventTemplateName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="RecordDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExtField">
+          <Key>
+            <PropertyRef Name="ExtFieldID" />
+          </Key>
+          <Property Name="ExtFieldID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="ExtFieldType" Type="int" Nullable="false" />
+          <Property Name="ExtFieldName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="RecordDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjAdmin">
+          <Key>
+            <PropertyRef Name="ObjAdminID" />
+          </Key>
+          <Property Name="ObjAdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AdminEmail" Type="nvarchar" MaxLength="128" />
+          <Property Name="AdminPhone" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="AdminGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SentInviteDT" Type="datetime" />
+          <Property Name="RegistrationDT" Type="datetime" />
+          <Property Name="MyAlarmUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="RecordDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjCust">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="UserNumber" Type="int" />
+          <Property Name="ObjCustTitle" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustName" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustPhone1" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustPhone2" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustPhone3" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustPhone4" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustPhone5" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="NordKeyID" Type="int" />
+          <Property Name="PINCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="IsVisibleInCabinet" Type="bit" />
+          <Property Name="ReclosingRequest" Type="bit" />
+          <Property Name="ReclosingFailure" Type="bit" />
+          <Property Name="MyAlarmUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="MyAlarmUserRole" Type="int" />
+          <Property Name="MyAlarmUserPhone" Type="nvarchar" MaxLength="128" />
+          <Property Name="ObjCustGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MyAlarmPanicEnabled" Type="bit" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+          </Key>
+          <Property Name="ObjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectNumber" Type="int" Nullable="false" />
+          <Property Name="EventTemplateID" Type="int" Nullable="false" />
+          <Property Name="ObjTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Contract" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="ObjectPassword" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Phone3" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ArmSchedule_EarlyArm" Type="bit" Nullable="false" />
+          <Property Name="ArmSchedule_ControlArm" Type="bit" Nullable="false" />
+          <Property Name="ArmSchedule_LaterArm" Type="bit" Nullable="false" />
+          <Property Name="ArmSchedule_EarlyDisarm" Type="bit" Nullable="false" />
+          <Property Name="ArmSchedule_ControlDisarm" Type="bit" Nullable="false" />
+          <Property Name="ArmSchedule_LaterDisarm" Type="bit" Nullable="false" />
+          <Property Name="ArmSchedule_Deviation" Type="int" Nullable="false" />
+          <Property Name="LSchedEnable" Type="bit" Nullable="false" />
+          <Property Name="LSchedStart" Type="datetime" Nullable="false" />
+          <Property Name="LSchedStop" Type="datetime" Nullable="false" />
+          <Property Name="Disable" Type="bit" Nullable="false" />
+          <Property Name="DisableDT" Type="datetime" Nullable="false" />
+          <Property Name="AutoEnable" Type="bit" Nullable="false" />
+          <Property Name="AutoEnableDT" Type="datetime" Nullable="false" />
+          <Property Name="ControlTime" Type="int" Nullable="false" />
+          <Property Name="ManualDisarm" Type="bit" Nullable="false" />
+          <Property Name="MapFileName" Type="nvarchar" MaxLength="255" />
+          <Property Name="WebLink" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsArm" Type="bit" Nullable="false" />
+          <Property Name="IsFire" Type="bit" Nullable="false" />
+          <Property Name="IsPanic" Type="bit" Nullable="false" />
+          <Property Name="CTUseCommon" Type="bit" Nullable="false" />
+          <Property Name="CTIgnoreSystemEvent" Type="bit" Nullable="false" />
+          <Property Name="IsTestFilter" Type="bit" Nullable="false" />
+          <Property Name="IsDoubleFilter" Type="bit" Nullable="false" />
+          <Property Name="IsUseEPAF" Type="bit" Nullable="false" />
+          <Property Name="DeviceTypeID" Type="int" />
+          <Property Name="IsRadioChannel" Type="bit" />
+          <Property Name="IsPhoneChannel" Type="bit" />
+          <Property Name="IsEthernetChannel" Type="bit" />
+          <Property Name="IsGsmDTMFChannel" Type="bit" />
+          <Property Name="IsGsmGPRSChannel" Type="bit" />
+          <Property Name="IsGsmCSDChannel" Type="bit" />
+          <Property Name="RadioTransID" Type="int" />
+          <Property Name="ActionNumber" Type="nvarchar" MaxLength="25" />
+          <Property Name="ChannelPhonePhone" Type="nvarchar" MaxLength="128" />
+          <Property Name="ChannelEthernetProviderID" Type="int" />
+          <Property Name="ChannelGsmOperator1ID" Type="int" />
+          <Property Name="ChannelGsmOperator2ID" Type="int" />
+          <Property Name="ChannelGsmPhone1" Type="nvarchar" MaxLength="128" />
+          <Property Name="ChannelGsmPhone2" Type="nvarchar" MaxLength="128" />
+          <Property Name="DeviceSIM1" Type="nvarchar" MaxLength="128" />
+          <Property Name="DeviceSIM2" Type="nvarchar" MaxLength="128" />
+          <Property Name="WarnSignalLevel" Type="int" />
+          <Property Name="AlarmSignalLevel" Type="int" />
+          <Property Name="XCoord" Type="int" />
+          <Property Name="YCoord" Type="int" />
+          <Property Name="CoordVisible" Type="bit" />
+          <Property Name="MountingCompanyID" Type="int" />
+          <Property Name="SecurityCompanyID" Type="int" />
+          <Property Name="ServiceCompanyID" Type="int" />
+          <Property Name="MonitoringStateID" Type="int" />
+          <Property Name="StartMonitoringDate" Type="datetime" />
+          <Property Name="StopMonitoringDate" Type="datetime" />
+          <Property Name="StateChangeDate" Type="datetime" />
+          <Property Name="SecurityDogovorID" Type="int" />
+          <Property Name="ReactionDogovorID" Type="int" />
+          <Property Name="PSecurityCompanyID" Type="int" />
+          <Property Name="ReactionCompanyID" Type="int" />
+          <Property Name="MountingPersonID" Type="int" />
+          <Property Name="PServiceCompanyID" Type="int" />
+          <Property Name="TariffID" Type="int" />
+          <Property Name="Price" Type="money" />
+          <Property Name="SecurityStateID" Type="int" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsManCaused" Type="bit" />
+          <Property Name="IsAccessControl" Type="bit" />
+          <Property Name="IsServiceAvailable" Type="bit" />
+          <Property Name="IsVitalFunction" Type="bit" />
+          <Property Name="CommentForOperator" Type="nvarchar" MaxLength="4000" />
+          <Property Name="CommentForGuard" Type="nvarchar" MaxLength="4000" />
+          <Property Name="CustomersComment" Type="nvarchar" MaxLength="4000" />
+          <Property Name="RecordDeleted" Type="bit" Nullable="false" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="TransmitterID" Type="char" MaxLength="24" />
+          <Property Name="JupiterDeviceID" Type="nvarchar" MaxLength="25" />
+          <Property Name="JupiterCypherKey" Type="nvarchar" MaxLength="128" />
+          <Property Name="JupiterParams" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ObjAdminID" Type="int" />
+          <Property Name="JupiterArmDisarmPassword" Type="nvarchar" MaxLength="25" />
+          <Property Name="DeviceCSN" Type="int" />
+          <Property Name="DeviceArmAllowed" Type="int" />
+          <Property Name="DeviceHWVersion" Type="int" />
+          <Property Name="DeviceSWVersion" Type="int" />
+          <Property Name="MoneyBalance" Type="money" />
+          <Property Name="DisableReason" Type="int" />
+          <Property Name="ContractPrice" Type="money" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="DeviceIMEI" Type="nvarchar" MaxLength="25" />
+          <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="IsSecureATM" Type="bit" />
+        </EntityType>
+        <EntityType Name="ObjExtField">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="ExtFieldID" Type="int" Nullable="false" />
+          <Property Name="ExtFieldValue" Type="nvarchar" MaxLength="255" />
+          <Property Name="ExtFiledValueGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjType">
+          <Key>
+            <PropertyRef Name="ObjTypeID" />
+          </Key>
+          <Property Name="ObjTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="ObjTypeName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="RecordDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ObjCust_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ObjCust" Type="Self.ObjCust" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ObjCust">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_ObjectAdmin">
+          <End Role="ObjAdmin" Type="Self.ObjAdmin" Multiplicity="0..1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjAdmin">
+              <PropertyRef Name="ObjAdminID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="ObjAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjExtField_ExtField">
+          <End Role="ExtField" Type="Self.ExtField" Multiplicity="1" />
+          <End Role="ObjExtField" Type="Self.ObjExtField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExtField">
+              <PropertyRef Name="ExtFieldID" />
+            </Principal>
+            <Dependent Role="ObjExtField">
+              <PropertyRef Name="ExtFieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjExtField_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ObjExtField" Type="Self.ObjExtField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ObjExtField">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="A28ModelStoreContainer">
+          <EntitySet Name="EP" EntityType="Self.EP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EPCustomer" EntityType="Self.EPCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventTemp" EntityType="Self.EventTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExtField" EntityType="Self.ExtField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjAdmin" EntityType="Self.ObjAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjCust" EntityType="Self.ObjCust" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjExtField" EntityType="Self.ObjExtField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjType" EntityType="Self.ObjType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ObjCust_Object" Association="Self.FK_ObjCust_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="ObjCust" EntitySet="ObjCust" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_ObjectAdmin" Association="Self.FK_Object_ObjectAdmin">
+            <End Role="ObjAdmin" EntitySet="ObjAdmin" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjExtField_ExtField" Association="Self.FK_ObjExtField_ExtField">
+            <End Role="ExtField" EntitySet="ExtField" />
+            <End Role="ObjExtField" EntitySet="ObjExtField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjExtField_Object" Association="Self.FK_ObjExtField_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="ObjExtField" EntitySet="ObjExtField" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="A28Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="ObjectID" />
+          </Key>
+          <Property Name="ObjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectNumber" Type="Int32" Nullable="false" />
+          <Property Name="EventTemplateID" Type="Int32" Nullable="false" />
+          <Property Name="ObjTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contract" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ObjectPassword" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone2" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone3" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ArmSchedule_EarlyArm" Type="Boolean" Nullable="false" />
+          <Property Name="ArmSchedule_ControlArm" Type="Boolean" Nullable="false" />
+          <Property Name="ArmSchedule_LaterArm" Type="Boolean" Nullable="false" />
+          <Property Name="ArmSchedule_EarlyDisarm" Type="Boolean" Nullable="false" />
+          <Property Name="ArmSchedule_ControlDisarm" Type="Boolean" Nullable="false" />
+          <Property Name="ArmSchedule_LaterDisarm" Type="Boolean" Nullable="false" />
+          <Property Name="ArmSchedule_Deviation" Type="Int32" Nullable="false" />
+          <Property Name="LSchedEnable" Type="Boolean" Nullable="false" />
+          <Property Name="LSchedStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LSchedStop" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Disable" Type="Boolean" Nullable="false" />
+          <Property Name="DisableDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AutoEnable" Type="Boolean" Nullable="false" />
+          <Property Name="AutoEnableDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ControlTime" Type="Int32" Nullable="false" />
+          <Property Name="ManualDisarm" Type="Boolean" Nullable="false" />
+          <Property Name="MapFileName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WebLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsArm" Type="Boolean" Nullable="false" />
+          <Property Name="IsFire" Type="Boolean" Nullable="false" />
+          <Property Name="IsPanic" Type="Boolean" Nullable="false" />
+          <Property Name="CTUseCommon" Type="Boolean" Nullable="false" />
+          <Property Name="CTIgnoreSystemEvent" Type="Boolean" Nullable="false" />
+          <Property Name="IsTestFilter" Type="Boolean" Nullable="false" />
+          <Property Name="IsDoubleFilter" Type="Boolean" Nullable="false" />
+          <Property Name="IsUseEPAF" Type="Boolean" Nullable="false" />
+          <Property Name="DeviceTypeID" Type="Int32" />
+          <Property Name="IsRadioChannel" Type="Boolean" />
+          <Property Name="IsPhoneChannel" Type="Boolean" />
+          <Property Name="IsEthernetChannel" Type="Boolean" />
+          <Property Name="IsGsmDTMFChannel" Type="Boolean" />
+          <Property Name="IsGsmGPRSChannel" Type="Boolean" />
+          <Property Name="IsGsmCSDChannel" Type="Boolean" />
+          <Property Name="RadioTransID" Type="Int32" />
+          <Property Name="ActionNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelPhonePhone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelEthernetProviderID" Type="Int32" />
+          <Property Name="ChannelGsmOperator1ID" Type="Int32" />
+          <Property Name="ChannelGsmOperator2ID" Type="Int32" />
+          <Property Name="ChannelGsmPhone1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelGsmPhone2" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceSIM1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceSIM2" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="WarnSignalLevel" Type="Int32" />
+          <Property Name="AlarmSignalLevel" Type="Int32" />
+          <Property Name="XCoord" Type="Int32" />
+          <Property Name="YCoord" Type="Int32" />
+          <Property Name="CoordVisible" Type="Boolean" />
+          <Property Name="MountingCompanyID" Type="Int32" />
+          <Property Name="SecurityCompanyID" Type="Int32" />
+          <Property Name="ServiceCompanyID" Type="Int32" />
+          <Property Name="MonitoringStateID" Type="Int32" />
+          <Property Name="StartMonitoringDate" Type="DateTime" Precision="3" />
+          <Property Name="StopMonitoringDate" Type="DateTime" Precision="3" />
+          <Property Name="StateChangeDate" Type="DateTime" Precision="3" />
+          <Property Name="SecurityDogovorID" Type="Int32" />
+          <Property Name="ReactionDogovorID" Type="Int32" />
+          <Property Name="PSecurityCompanyID" Type="Int32" />
+          <Property Name="ReactionCompanyID" Type="Int32" />
+          <Property Name="MountingPersonID" Type="Int32" />
+          <Property Name="PServiceCompanyID" Type="Int32" />
+          <Property Name="TariffID" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SecurityStateID" Type="Int32" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="IsManCaused" Type="Boolean" />
+          <Property Name="IsAccessControl" Type="Boolean" />
+          <Property Name="IsServiceAvailable" Type="Boolean" />
+          <Property Name="IsVitalFunction" Type="Boolean" />
+          <Property Name="CommentForOperator" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CommentForGuard" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CustomersComment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="RecordDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="TransmitterID" Type="String" MaxLength="24" FixedLength="true" Unicode="false" />
+          <Property Name="JupiterDeviceID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="JupiterCypherKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="JupiterParams" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ObjAdminID" Type="Int32" />
+          <Property Name="JupiterArmDisarmPassword" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceCSN" Type="Int32" />
+          <Property Name="DeviceArmAllowed" Type="Int32" />
+          <Property Name="DeviceHWVersion" Type="Int32" />
+          <Property Name="DeviceSWVersion" Type="Int32" />
+          <NavigationProperty Name="ObjExtField" Relationship="A28Model.FK_ObjExtField_Object" FromRole="Object" ToRole="ObjExtField" />
+          <NavigationProperty Name="ObjCust" Relationship="A28Model.FK_ObjCust_Object" FromRole="Object" ToRole="ObjCust" />
+          <NavigationProperty Name="ObjAdmin" Relationship="A28Model.FK_Object_ObjectAdmin" FromRole="Object" ToRole="ObjAdmin" />
+          <Property Name="MoneyBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DisableReason" Type="Int32" />
+          <Property Name="ContractPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="DeviceIMEI" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="IsSecureATM" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="A28Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Object" EntityType="Self.Object" />
+          <EntitySet Name="ExtField" EntityType="A28Model.ExtField" />
+          <EntitySet Name="ObjExtField" EntityType="A28Model.ObjExtField" />
+          <EntitySet Name="ObjType" EntityType="A28Model.ObjType" />
+          <AssociationSet Name="FK_ObjExtField_ExtField" Association="A28Model.FK_ObjExtField_ExtField">
+            <End Role="ExtField" EntitySet="ExtField" />
+            <End Role="ObjExtField" EntitySet="ObjExtField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjExtField_Object" Association="A28Model.FK_ObjExtField_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="ObjExtField" EntitySet="ObjExtField" />
+          </AssociationSet>
+          <EntitySet Name="EventTemp" EntityType="A28Model.EventTemp" />
+          <EntitySet Name="ObjCust" EntityType="A28Model.ObjCust" />
+          <AssociationSet Name="FK_ObjCust_Object" Association="A28Model.FK_ObjCust_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="ObjCust" EntitySet="ObjCust" />
+          </AssociationSet>
+          <EntitySet Name="ObjAdmin" EntityType="A28Model.ObjAdmin" />
+          <AssociationSet Name="FK_Object_ObjectAdmin" Association="A28Model.FK_Object_ObjectAdmin">
+            <End Role="ObjAdmin" EntitySet="ObjAdmin" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <EntitySet Name="EP" EntityType="A28Model.EP" />
+          <EntitySet Name="EPCustomer" EntityType="A28Model.EPCustomer" />
+        </EntityContainer>
+        <EntityType Name="ExtField">
+          <Key>
+            <PropertyRef Name="ExtFieldID" />
+          </Key>
+          <Property Name="ExtFieldID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="ExtFieldType" Type="Int32" Nullable="false" />
+          <Property Name="ExtFieldName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RecordDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ObjExtField" Relationship="A28Model.FK_ObjExtField_ExtField" FromRole="ExtField" ToRole="ObjExtField" />
+        </EntityType>
+        <EntityType Name="ObjExtField">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="ExtFieldID" Type="Int32" Nullable="false" />
+          <Property Name="ExtFieldValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ExtField" Relationship="A28Model.FK_ObjExtField_ExtField" FromRole="ObjExtField" ToRole="ExtField" />
+          <NavigationProperty Name="Object" Relationship="A28Model.FK_ObjExtField_Object" FromRole="ObjExtField" ToRole="Object" />
+          <Property Name="ExtFiledValueGUID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjType">
+          <Key>
+            <PropertyRef Name="ObjTypeID" />
+          </Key>
+          <Property Name="ObjTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="ObjTypeName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RecordDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ObjExtField_ExtField">
+          <End Type="A28Model.ExtField" Role="ExtField" Multiplicity="1" />
+          <End Type="A28Model.ObjExtField" Role="ObjExtField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExtField">
+              <PropertyRef Name="ExtFieldID" />
+            </Principal>
+            <Dependent Role="ObjExtField">
+              <PropertyRef Name="ExtFieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjExtField_Object">
+          <End Type="A28Model.Object" Role="Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="A28Model.ObjExtField" Role="ObjExtField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ObjExtField">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EventTemp">
+          <Key>
+            <PropertyRef Name="EventTemplateID" />
+          </Key>
+          <Property Name="EventTemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="EventTemplateName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RecordDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjCust">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="UserNumber" Type="Int32" />
+          <Property Name="ObjCustTitle" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustPhone1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustPhone2" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustPhone3" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustPhone4" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustPhone5" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NordKeyID" Type="Int32" />
+          <Property Name="PINCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="IsVisibleInCabinet" Type="Boolean" />
+          <Property Name="ReclosingRequest" Type="Boolean" />
+          <Property Name="ReclosingFailure" Type="Boolean" />
+          <NavigationProperty Name="Object" Relationship="A28Model.FK_ObjCust_Object" FromRole="ObjCust" ToRole="Object" />
+          <Property Name="MyAlarmUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MyAlarmUserRole" Type="Int32" />
+          <Property Name="MyAlarmUserPhone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ObjCustGUID" Type="Guid" Nullable="false" />
+          <Property Name="MyAlarmPanicEnabled" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_ObjCust_Object">
+          <End Type="A28Model.Object" Role="Object" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="A28Model.ObjCust" Role="ObjCust" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="ObjectID" />
+            </Principal>
+            <Dependent Role="ObjCust">
+              <PropertyRef Name="ObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ObjAdmin">
+          <Key>
+            <PropertyRef Name="ObjAdminID" />
+          </Key>
+          <Property Name="ObjAdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AdminEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AdminPhone" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="AdminGUID" Type="Guid" Nullable="false" />
+          <Property Name="SentInviteDT" Type="DateTime" Precision="3" />
+          <Property Name="RegistrationDT" Type="DateTime" Precision="3" />
+          <Property Name="RecordDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Object" Relationship="A28Model.FK_Object_ObjectAdmin" FromRole="ObjAdmin" ToRole="Object" />
+          <Property Name="MyAlarmUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Object_ObjectAdmin">
+          <End Type="A28Model.ObjAdmin" Role="ObjAdmin" Multiplicity="0..1" />
+          <End Type="A28Model.Object" Role="Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjAdmin">
+              <PropertyRef Name="ObjAdminID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="ObjAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EP">
+          <Key>
+            <PropertyRef Name="ProcID" />
+          </Key>
+          <Property Name="ProcID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcGroupID" Type="Int32" Nullable="false" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="ComponentGUID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProcType" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="InternalNumber" Type="Int32" />
+          <Property Name="Enabled" Type="Boolean" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RCFilterInterval" Type="Int32" />
+          <Property Name="UseAnyEvent" Type="Boolean" />
+          <Property Name="ActivationMode" Type="Int32" />
+          <Property Name="AnyEventForActivate" Type="Boolean" />
+          <Property Name="ActivationInterval" Type="Int32" />
+          <Property Name="AnyEventForDeactivate" Type="Boolean" />
+          <Property Name="Params" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EPCustomer">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecordType" Type="Int32" Nullable="false" />
+          <Property Name="OwnerRecordID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerGroupID" Type="Int32" />
+          <Property Name="BeginningNumber" Type="Int32" />
+          <Property Name="EndNumber" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="A28ModelStoreContainer" CdmEntityContainer="A28Entities">
+          <EntitySetMapping Name="Object">
+            <EntityTypeMapping TypeName="A28Model.Object">
+              <MappingFragment StoreEntitySet="Object">
+                <ScalarProperty Name="IsSecureATM" ColumnName="IsSecureATM" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="DeviceIMEI" ColumnName="DeviceIMEI" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="ContractPrice" ColumnName="ContractPrice" />
+                <ScalarProperty Name="DisableReason" ColumnName="DisableReason" />
+                <ScalarProperty Name="MoneyBalance" ColumnName="MoneyBalance" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="ObjectNumber" ColumnName="ObjectNumber" />
+                <ScalarProperty Name="EventTemplateID" ColumnName="EventTemplateID" />
+                <ScalarProperty Name="ObjTypeID" ColumnName="ObjTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
+                <ScalarProperty Name="ObjectPassword" ColumnName="ObjectPassword" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone3" ColumnName="Phone3" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ArmSchedule_EarlyArm" ColumnName="ArmSchedule_EarlyArm" />
+                <ScalarProperty Name="ArmSchedule_ControlArm" ColumnName="ArmSchedule_ControlArm" />
+                <ScalarProperty Name="ArmSchedule_LaterArm" ColumnName="ArmSchedule_LaterArm" />
+                <ScalarProperty Name="ArmSchedule_EarlyDisarm" ColumnName="ArmSchedule_EarlyDisarm" />
+                <ScalarProperty Name="ArmSchedule_ControlDisarm" ColumnName="ArmSchedule_ControlDisarm" />
+                <ScalarProperty Name="ArmSchedule_LaterDisarm" ColumnName="ArmSchedule_LaterDisarm" />
+                <ScalarProperty Name="ArmSchedule_Deviation" ColumnName="ArmSchedule_Deviation" />
+                <ScalarProperty Name="LSchedEnable" ColumnName="LSchedEnable" />
+                <ScalarProperty Name="LSchedStart" ColumnName="LSchedStart" />
+                <ScalarProperty Name="LSchedStop" ColumnName="LSchedStop" />
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+                <ScalarProperty Name="DisableDT" ColumnName="DisableDT" />
+                <ScalarProperty Name="AutoEnable" ColumnName="AutoEnable" />
+                <ScalarProperty Name="AutoEnableDT" ColumnName="AutoEnableDT" />
+                <ScalarProperty Name="ControlTime" ColumnName="ControlTime" />
+                <ScalarProperty Name="ManualDisarm" ColumnName="ManualDisarm" />
+                <ScalarProperty Name="MapFileName" ColumnName="MapFileName" />
+                <ScalarProperty Name="WebLink" ColumnName="WebLink" />
+                <ScalarProperty Name="IsArm" ColumnName="IsArm" />
+                <ScalarProperty Name="IsFire" ColumnName="IsFire" />
+                <ScalarProperty Name="IsPanic" ColumnName="IsPanic" />
+                <ScalarProperty Name="CTUseCommon" ColumnName="CTUseCommon" />
+                <ScalarProperty Name="CTIgnoreSystemEvent" ColumnName="CTIgnoreSystemEvent" />
+                <ScalarProperty Name="IsTestFilter" ColumnName="IsTestFilter" />
+                <ScalarProperty Name="IsDoubleFilter" ColumnName="IsDoubleFilter" />
+                <ScalarProperty Name="IsUseEPAF" ColumnName="IsUseEPAF" />
+                <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+                <ScalarProperty Name="IsRadioChannel" ColumnName="IsRadioChannel" />
+                <ScalarProperty Name="IsPhoneChannel" ColumnName="IsPhoneChannel" />
+                <ScalarProperty Name="IsEthernetChannel" ColumnName="IsEthernetChannel" />
+                <ScalarProperty Name="IsGsmDTMFChannel" ColumnName="IsGsmDTMFChannel" />
+                <ScalarProperty Name="IsGsmGPRSChannel" ColumnName="IsGsmGPRSChannel" />
+                <ScalarProperty Name="IsGsmCSDChannel" ColumnName="IsGsmCSDChannel" />
+                <ScalarProperty Name="RadioTransID" ColumnName="RadioTransID" />
+                <ScalarProperty Name="ActionNumber" ColumnName="ActionNumber" />
+                <ScalarProperty Name="ChannelPhonePhone" ColumnName="ChannelPhonePhone" />
+                <ScalarProperty Name="ChannelEthernetProviderID" ColumnName="ChannelEthernetProviderID" />
+                <ScalarProperty Name="ChannelGsmOperator1ID" ColumnName="ChannelGsmOperator1ID" />
+                <ScalarProperty Name="ChannelGsmOperator2ID" ColumnName="ChannelGsmOperator2ID" />
+                <ScalarProperty Name="ChannelGsmPhone1" ColumnName="ChannelGsmPhone1" />
+                <ScalarProperty Name="ChannelGsmPhone2" ColumnName="ChannelGsmPhone2" />
+                <ScalarProperty Name="DeviceSIM1" ColumnName="DeviceSIM1" />
+                <ScalarProperty Name="DeviceSIM2" ColumnName="DeviceSIM2" />
+                <ScalarProperty Name="WarnSignalLevel" ColumnName="WarnSignalLevel" />
+                <ScalarProperty Name="AlarmSignalLevel" ColumnName="AlarmSignalLevel" />
+                <ScalarProperty Name="XCoord" ColumnName="XCoord" />
+                <ScalarProperty Name="YCoord" ColumnName="YCoord" />
+                <ScalarProperty Name="CoordVisible" ColumnName="CoordVisible" />
+                <ScalarProperty Name="MountingCompanyID" ColumnName="MountingCompanyID" />
+                <ScalarProperty Name="SecurityCompanyID" ColumnName="SecurityCompanyID" />
+                <ScalarProperty Name="ServiceCompanyID" ColumnName="ServiceCompanyID" />
+                <ScalarProperty Name="MonitoringStateID" ColumnName="MonitoringStateID" />
+                <ScalarProperty Name="StartMonitoringDate" ColumnName="StartMonitoringDate" />
+                <ScalarProperty Name="StopMonitoringDate" ColumnName="StopMonitoringDate" />
+                <ScalarProperty Name="StateChangeDate" ColumnName="StateChangeDate" />
+                <ScalarProperty Name="SecurityDogovorID" ColumnName="SecurityDogovorID" />
+                <ScalarProperty Name="ReactionDogovorID" ColumnName="ReactionDogovorID" />
+                <ScalarProperty Name="PSecurityCompanyID" ColumnName="PSecurityCompanyID" />
+                <ScalarProperty Name="ReactionCompanyID" ColumnName="ReactionCompanyID" />
+                <ScalarProperty Name="MountingPersonID" ColumnName="MountingPersonID" />
+                <ScalarProperty Name="PServiceCompanyID" ColumnName="PServiceCompanyID" />
+                <ScalarProperty Name="TariffID" ColumnName="TariffID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SecurityStateID" ColumnName="SecurityStateID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="IsManCaused" ColumnName="IsManCaused" />
+                <ScalarProperty Name="IsAccessControl" ColumnName="IsAccessControl" />
+                <ScalarProperty Name="IsServiceAvailable" ColumnName="IsServiceAvailable" />
+                <ScalarProperty Name="IsVitalFunction" ColumnName="IsVitalFunction" />
+                <ScalarProperty Name="CommentForOperator" ColumnName="CommentForOperator" />
+                <ScalarProperty Name="CommentForGuard" ColumnName="CommentForGuard" />
+                <ScalarProperty Name="CustomersComment" ColumnName="CustomersComment" />
+                <ScalarProperty Name="RecordDeleted" ColumnName="RecordDeleted" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="TransmitterID" ColumnName="TransmitterID" />
+                <ScalarProperty Name="JupiterDeviceID" ColumnName="JupiterDeviceID" />
+                <ScalarProperty Name="JupiterCypherKey" ColumnName="JupiterCypherKey" />
+                <ScalarProperty Name="JupiterParams" ColumnName="JupiterParams" />
+                <ScalarProperty Name="ObjAdminID" ColumnName="ObjAdminID" />
+                <ScalarProperty Name="JupiterArmDisarmPassword" ColumnName="JupiterArmDisarmPassword" />
+                <ScalarProperty Name="DeviceCSN" ColumnName="DeviceCSN" />
+                <ScalarProperty Name="DeviceArmAllowed" ColumnName="DeviceArmAllowed" />
+                <ScalarProperty Name="DeviceHWVersion" ColumnName="DeviceHWVersion" />
+                <ScalarProperty Name="DeviceSWVersion" ColumnName="DeviceSWVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExtField">
+            <EntityTypeMapping TypeName="A28Model.ExtField">
+              <MappingFragment StoreEntitySet="ExtField">
+                <ScalarProperty Name="RecordDeleted" ColumnName="RecordDeleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ExtFieldName" ColumnName="ExtFieldName" />
+                <ScalarProperty Name="ExtFieldType" ColumnName="ExtFieldType" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="ExtFieldID" ColumnName="ExtFieldID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjExtField">
+            <EntityTypeMapping TypeName="A28Model.ObjExtField">
+              <MappingFragment StoreEntitySet="ObjExtField">
+                <ScalarProperty Name="ExtFiledValueGUID" ColumnName="ExtFiledValueGUID" />
+                <ScalarProperty Name="ExtFieldValue" ColumnName="ExtFieldValue" />
+                <ScalarProperty Name="ExtFieldID" ColumnName="ExtFieldID" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjType">
+            <EntityTypeMapping TypeName="A28Model.ObjType">
+              <MappingFragment StoreEntitySet="ObjType">
+                <ScalarProperty Name="RecordDeleted" ColumnName="RecordDeleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="ObjTypeID" ColumnName="ObjTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTemp">
+            <EntityTypeMapping TypeName="A28Model.EventTemp">
+              <MappingFragment StoreEntitySet="EventTemp">
+                <ScalarProperty Name="RecordDeleted" ColumnName="RecordDeleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EventTemplateName" ColumnName="EventTemplateName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="EventTemplateID" ColumnName="EventTemplateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjCust">
+            <EntityTypeMapping TypeName="A28Model.ObjCust">
+              <MappingFragment StoreEntitySet="ObjCust">
+                <ScalarProperty Name="MyAlarmPanicEnabled" ColumnName="MyAlarmPanicEnabled" />
+                <ScalarProperty Name="ObjCustGUID" ColumnName="ObjCustGUID" />
+                <ScalarProperty Name="MyAlarmUserPhone" ColumnName="MyAlarmUserPhone" />
+                <ScalarProperty Name="MyAlarmUserRole" ColumnName="MyAlarmUserRole" />
+                <ScalarProperty Name="MyAlarmUserID" ColumnName="MyAlarmUserID" />
+                <ScalarProperty Name="ReclosingFailure" ColumnName="ReclosingFailure" />
+                <ScalarProperty Name="ReclosingRequest" ColumnName="ReclosingRequest" />
+                <ScalarProperty Name="IsVisibleInCabinet" ColumnName="IsVisibleInCabinet" />
+                <ScalarProperty Name="PINCode" ColumnName="PINCode" />
+                <ScalarProperty Name="NordKeyID" ColumnName="NordKeyID" />
+                <ScalarProperty Name="ObjCustAddress" ColumnName="ObjCustAddress" />
+                <ScalarProperty Name="ObjCustPhone5" ColumnName="ObjCustPhone5" />
+                <ScalarProperty Name="ObjCustPhone4" ColumnName="ObjCustPhone4" />
+                <ScalarProperty Name="ObjCustPhone3" ColumnName="ObjCustPhone3" />
+                <ScalarProperty Name="ObjCustPhone2" ColumnName="ObjCustPhone2" />
+                <ScalarProperty Name="ObjCustPhone1" ColumnName="ObjCustPhone1" />
+                <ScalarProperty Name="ObjCustName" ColumnName="ObjCustName" />
+                <ScalarProperty Name="ObjCustTitle" ColumnName="ObjCustTitle" />
+                <ScalarProperty Name="UserNumber" ColumnName="UserNumber" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjAdmin">
+            <EntityTypeMapping TypeName="A28Model.ObjAdmin">
+              <MappingFragment StoreEntitySet="ObjAdmin">
+                <ScalarProperty Name="MyAlarmUserID" ColumnName="MyAlarmUserID" />
+                <ScalarProperty Name="RecordDeleted" ColumnName="RecordDeleted" />
+                <ScalarProperty Name="RegistrationDT" ColumnName="RegistrationDT" />
+                <ScalarProperty Name="SentInviteDT" ColumnName="SentInviteDT" />
+                <ScalarProperty Name="AdminGUID" ColumnName="AdminGUID" />
+                <ScalarProperty Name="AdminPhone" ColumnName="AdminPhone" />
+                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="ObjAdminID" ColumnName="ObjAdminID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EP">
+            <EntityTypeMapping TypeName="A28Model.EP">
+              <MappingFragment StoreEntitySet="EP">
+                <ScalarProperty Name="Params" ColumnName="Params" />
+                <ScalarProperty Name="AnyEventForDeactivate" ColumnName="AnyEventForDeactivate" />
+                <ScalarProperty Name="ActivationInterval" ColumnName="ActivationInterval" />
+                <ScalarProperty Name="AnyEventForActivate" ColumnName="AnyEventForActivate" />
+                <ScalarProperty Name="ActivationMode" ColumnName="ActivationMode" />
+                <ScalarProperty Name="UseAnyEvent" ColumnName="UseAnyEvent" />
+                <ScalarProperty Name="RCFilterInterval" ColumnName="RCFilterInterval" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="InternalNumber" ColumnName="InternalNumber" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ProcType" ColumnName="ProcType" />
+                <ScalarProperty Name="ComponentGUID" ColumnName="ComponentGUID" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="ProcGroupID" ColumnName="ProcGroupID" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EPCustomer">
+            <EntityTypeMapping TypeName="A28Model.EPCustomer">
+              <MappingFragment StoreEntitySet="EPCustomer">
+                <ScalarProperty Name="EndNumber" ColumnName="EndNumber" />
+                <ScalarProperty Name="BeginningNumber" ColumnName="BeginningNumber" />
+                <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+                <ScalarProperty Name="OwnerRecordID" ColumnName="OwnerRecordID" />
+                <ScalarProperty Name="RecordType" ColumnName="RecordType" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

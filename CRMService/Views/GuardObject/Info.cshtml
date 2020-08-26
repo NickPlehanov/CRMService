@@ -1,0 +1,94 @@
+﻿@model CRMService.Models.GuardObjectModel
+
+
+<div style="float: right;">
+    @ViewBag.CurrUser
+    <br />
+    @ViewBag.DTNow
+</div>
+
+
+
+
+@{
+    ViewBag.Title = "Карточка объекта";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+
+<style type="text/css">
+/*@@media print{
+  body{ background-color:#FFFFFF; background-image:none; color:#000000 }
+  #ad{ display:none;}
+  #leftbar{ display:none;}
+  #contentarea{ width:100%;}
+}*/
+</style>
+
+<style type="text/css" media="print">
+
+    @@page {margin:-60cm;}
+    html {margin:60cm}
+</style>
+
+
+
+<div>
+    @*<a href="javascript:window.print();">Печать</a>*@
+</div>
+
+@*@ViewBag.ExceptionMessage*@
+
+
+<h3>Карточка объекта №@Model.Number @Model.Name</h3>
+
+<div style="border:1px solid black;">
+    <div><b>@Model.Name</b></div>
+    <div><i><b>@Model.Address</b></i></div>
+    <div>Тип сигнализации: <b>@Model.Sygnalizations</b></div>
+    @*<div>Тип объекта: <b>@Model.ObjectType</b></div>*@
+    @*<div>Шаблон событий: <b>@Model.EventTemplate</b></div>*@
+    @*<div>Контрольное время: <b>@Model.ControlTime</b></div>*@
+    @*<div>Телефон 1: <b>@Model.Phone1</b></div>*@
+    @*<div>Телефон 2: <b>@Model.Phone2</b></div>*@
+    @*<div>Телефон 3: <b>@Model.Phone3</b></div>*@
+    <div>Удаленное программирование: <b>@Model.RemoteProgrammingGUID</b></div>
+
+    @foreach (var ext in Model.ExtFields)
+    {
+        <div>@ext.Key
+            :
+            <b> @ext.Value</b>
+        </div>
+    }
+
+</div>
+
+
+<h4>Ответственные</h4>
+<div style="border:1px solid black;">
+    <table style="border: 1px solid black; border-collapse: collapse;">
+        <tr style="text-align: center;">
+            <td style="border: 1px solid black;">Номер кода</td>
+            <td style="border: 1px solid black;">Ф.И.О.</td>
+            <td style="border: 1px solid black;">Должность</td>
+            <td style="border: 1px solid black;">Телефон</td>
+            <td style="border: 1px solid black;">Адрес</td>
+        </tr>
+
+        @foreach (var ext in Model.Owners)
+        {
+            <tr>
+                <td style="border: 1px solid black;">@ext.UserNumber</td>
+                <td style="border: 1px solid black;">@ext.ObjCustName</td>
+                <td style="border: 1px solid black;">@ext.ObjCustTitle</td>
+                <td style="border: 1px solid black;">@ext.ObjCustPhone1</td>
+                <td style="border: 1px solid black;">@ext.ObjCustAddress</td>
+            </tr>
+        }
+    </table>   
+
+ </div>
+
+
+

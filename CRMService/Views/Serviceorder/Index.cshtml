@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<CRMService.Models.ServiceorderModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Заявки техникам";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<h2>Заявки техникам</h2>
+<hr />
+
+@using (Html.BeginForm("Create", "Serviceorder", FormMethod.Get, new { target = "_blank" }))
+{
+    <button type="submit" @*name="create" value="createServiceman"*@>Создать заявку</button>
+}
+
+
+<h3>Искать заявку по номеру объекта</h3>
+@using (Html.BeginForm("Index", "Serviceorder", FormMethod.Post))
+{
+    @Html.TextBox("searchNumber", null, new { placeholder = "номер объекта" })
+
+    <input type="submit" value="Искать" />
+}
+
+<hr />
+
+
+<table class="table">
+    <tr>
+        <th>Причина посещения</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+
+                @*@Ajax.ActionLink(item.Name, "Info", new { guardobjectId = item.GuardObjectId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target = "_blank" })*@
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @*из @Model.PageCount*@
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+

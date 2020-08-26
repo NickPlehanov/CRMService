@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52f4112cc147405abd83fcfa1fe44780" Name="Diagram1" ZoomLevel="53">
+        <EntityTypeShape EntityType="A28Model.Object" Width="1.75" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="A28Model.ExtField" Width="1.5" PointX="0.75" PointY="21.375" />
+        <EntityTypeShape EntityType="A28Model.ObjExtField" Width="1.5" PointX="3" PointY="9.5" />
+        <EntityTypeShape EntityType="A28Model.ObjType" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="A28Model.FK_ObjExtField_ExtField" />
+        <AssociationConnector Association="A28Model.FK_ObjExtField_Object" />
+        <EntityTypeShape EntityType="A28Model.EventTemp" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="A28Model.ObjCust" Width="1.5" PointX="7.5" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="A28Model.FK_ObjCust_Object" />
+        <EntityTypeShape EntityType="A28Model.ObjAdmin" Width="1.5" PointX="0.75" PointY="25.375" />
+        <AssociationConnector Association="A28Model.FK_Object_ObjectAdmin" />
+        <EntityTypeShape EntityType="A28Model.EP" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="A28Model.EPCustomer" Width="1.5" PointX="5.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

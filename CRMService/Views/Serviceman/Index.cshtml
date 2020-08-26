@@ -1,0 +1,43 @@
+﻿@model List<CRMService.Models.ServicemanModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<h2>Техники</h2>
+
+
+@using (Html.BeginForm("Create", "Serviceman", FormMethod.Get, new { target = "_blank" }))
+{
+    <button type="submit" @*name="create" value="createServiceman"*@>Создать</button>
+}
+
+
+
+
+@using (Html.BeginForm("Edit", "Serviceman", FormMethod.Get, new { target = "_blank" }))
+{
+    for (var i = 0; i < Model.Count; i++)
+    {
+        @Html.HiddenFor(model => model[i].ServicemanId)
+        <div>@Model[i].Name</div><br />
+    
+        @Ajax.ActionLink(@Model[i].Name, "Edit", new { servicemanId = @Model[i].ServicemanId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target="_blank" })
+
+        
+    }
+}
+
+
+
+
+
+
+@*@foreach(var serviceman in ViewBag.Servicemans)
+{
+    <div>@serviceman.Name</div><br/>
+}*@
+
+
+

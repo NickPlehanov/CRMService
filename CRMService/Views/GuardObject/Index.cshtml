@@ -1,0 +1,70 @@
+﻿@model PagedList.IPagedList<CRMService.Models.GuardObjectModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Объекты";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<h2>Объекты</h2>
+<hr />
+
+<h3>Искать объект</h3>
+@using (Html.BeginForm("Index", "GuardObject", FormMethod.Post))
+{
+    @Html.DropDownList("searchParam", new List<SelectListItem> { 
+        new SelectListItem { Selected = false, Value = "0", Text = "" }, 
+        new SelectListItem { Selected = false, Value = "1", Text = "Дата ввода" }, 
+        new SelectListItem { Selected = false, Value = "2", Text = "Номер" }, 
+        new SelectListItem { Selected = false, Value = "3", Text = "Название" }, 
+        new SelectListItem { Selected = false, Value = "4", Text = "Адрес" }
+    })
+    
+    @Html.TextBox("searchString", null, new { placeholder="Строка поиска..." })
+
+    <input type="submit" value="Искать" />
+}
+
+<hr />
+
+
+<table class="table">
+    <tr>
+        <th>Дата ввода</th>
+        <th>Номер</th>
+        <th>Название</th>
+        <th>Адрес</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Ajax.ActionLink(item.DateIn, "Info", new { guardobjectId = item.GuardObjectId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target = "_blank" })
+            </td>
+
+            <td>
+                @Ajax.ActionLink(item.Number, "Info", new { guardobjectId = item.GuardObjectId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target = "_blank" })
+            </td>
+
+            <td>
+                @Ajax.ActionLink(item.Name, "Info", new { guardobjectId = item.GuardObjectId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target = "_blank" })
+            </td>
+
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Name)*@
+
+                @Ajax.ActionLink(string.IsNullOrEmpty(item.Address) ? " " : item.Address, "Info", new { guardobjectId = item.GuardObjectId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target = "_blank" })
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+@*Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)*@ @*из @Model.PageCount*@
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString }))
+
+
+

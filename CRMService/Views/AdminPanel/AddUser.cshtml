@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "AddUser";
+}
+
+<h2>Пользователь</h2>
+
+<hr />
+
+@using (Html.BeginForm("AddUser", "AdminPanel", FormMethod.Post))
+{
+    @Html.TextBox("userFullName", null, new { placeholder = "Имя пользователя" })   @: <br /><br />
+    @Html.TextBox("userDomainName", null, new { placeholder = "Доменное имя" })     @: <br /><br />
+    @Html.CheckBox("Area1", false)   @:  Объекты<br /><br />
+    @Html.CheckBox("Area2", false)   @:  Номера телефонов<br /><br />
+
+
+
+
+    @: <input type="submit" value="Сохранить" />
+}

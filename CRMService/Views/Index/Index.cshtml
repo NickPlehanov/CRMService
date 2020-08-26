@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+
+@ViewBag.CurrentUser
+
+<br /><br />
+<div style="width:100%;">
+
+    @*<div><a href="/guardobject" target="_blank" style="color: black; text-decoration: none;">Объекты</a></div>*@
+    <!--<div><a href="/serviceorder" target="_blank">Заявки</a></div>
+    <div><a href="/serviceman" target="_blank">Техники</a></div>-->
+
+    
+
+
+    @if (Model != null)
+    {
+        for (var i = 0; i < Model.Count; i++)
+        {
+            <div style="width:20%;background-color: rgb(207, 221, 255);height: 25px; padding-top: 5px; padding-left: 10px;"><a href="@Model[i].HrefLink" target="_blank" style="color: black; text-decoration: underline;">@Model[i].Name</a></div><br/>
+        }
+    }
+    
+    
+</div>
+
+
+
+
+<script>
+    
+</script>
