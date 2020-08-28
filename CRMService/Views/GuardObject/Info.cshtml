@@ -53,12 +53,27 @@
     @*<div>Телефон 2: <b>@Model.Phone2</b></div>*@
     @*<div>Телефон 3: <b>@Model.Phone3</b></div>*@
     <div>Удаленное программирование: <b>@Model.RemoteProgrammingGUID</b></div>
+    <div>Отправка СМС: <br>
+        @foreach (var item in Model.SendSMS) {
+            <b>@item.number</b> <br />
+        }
+          </b></div>
+    <div>Администратор(ы): <b><br />
+        @foreach (var a in Model.CustAdmins) {
+            <b>@a.ObjCustName @a.Role @a.ObjCustPhone1</b><br />
+        }
+         </b></div>
+    <div>Доп.услуги: <b><br />
+        @foreach (var a in Model.addServices.Where(x=>x.Enabled==true)) {
+            <b>@a.Name </b> <br />
+        }
+         </b></div>
 
     @foreach (var ext in Model.ExtFields)
     {
-        <div>@ext.Key
+        <div>@ext.ExtFieldName
             :
-            <b> @ext.Value</b>
+            <b> @ext.ExtFieldValue</b>
         </div>
     }
 
@@ -76,7 +91,7 @@
             <td style="border: 1px solid black;">Адрес</td>
         </tr>
 
-        @foreach (var ext in Model.Owners)
+        @foreach (var ext in Model.Owners.OrderBy(x=>x.UserNumber))
         {
             <tr>
                 <td style="border: 1px solid black;">@ext.UserNumber</td>

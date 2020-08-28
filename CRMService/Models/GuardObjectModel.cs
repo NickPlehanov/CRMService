@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using CRMService.Data;
+using CRMService.Data.A28;
 
-namespace CRMService.Models
-{
+namespace CRMService.Models {
     public class GuardObjectModel
     {
         [ScaffoldColumn(false)]
@@ -55,9 +52,16 @@ namespace CRMService.Models
         public string RemoteProgrammingGUID { get; set; }
 
 
-        public Dictionary<string, string> ExtFields { get; set; }
+        //public Dictionary<string, string> ExtFields { get; set; }
+        public List<_extFields> ExtFields { get; set; }
 
         public List<ObjCust> Owners { get; set; }
+
+        public List<ObjCust> CustAdmins { get; set; }
+
+        public List<EP> SendSMS { get; set; }
+
+        public List<_additionalServices> addServices { get; set; }
     }
 
     //public class PageInfo

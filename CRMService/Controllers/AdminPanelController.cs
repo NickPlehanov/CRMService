@@ -20,43 +20,43 @@ namespace CRMService.Controllers
 
         public ActionResult AddUser(string userFullName = "", string userDomainName = "", bool Area1 = false, bool Area2 = false)
         {
-            try
-            {
-                if (!string.IsNullOrEmpty(userDomainName))
-                {
-                    using (var context = new CRMServiceEntities())
-                    {
-                        var newUser = new User() { UserFullname = userFullName, UserDomainName = userDomainName };
+            //try
+            //{
+            //    if (!string.IsNullOrEmpty(userDomainName))
+            //    {
+            //        using (var context = new CRMServiceEntities())
+            //        {
+            //            var newUser = new User() { UserFullname = userFullName, UserDomainName = userDomainName };
 
-                        context.User.Add(newUser);
+            //            context.User.Add(newUser);
 
-                        context.SaveChanges();
+            //            context.SaveChanges();
 
-                        var newUserId = newUser.UserId;
+            //            var newUserId = newUser.UserId;
 
-                        if (Area1)
-                        {
-                            context.UserArea.Add(new UserArea() { 
-                                UserId = newUserId,
-                                AreaId = 1
-                            });
-                        }
-                        if (Area2)
-                        {
-                            context.UserArea.Add(new UserArea()
-                            {
-                                UserId = newUserId,
-                                AreaId = 2
-                            });
-                        }
+            //            if (Area1)
+            //            {
+            //                context.UserArea.Add(new UserArea() { 
+            //                    UserId = newUserId,
+            //                    AreaId = 1
+            //                });
+            //            }
+            //            if (Area2)
+            //            {
+            //                context.UserArea.Add(new UserArea()
+            //                {
+            //                    UserId = newUserId,
+            //                    AreaId = 2
+            //                });
+            //            }
 
-                        context.SaveChanges();
-                    }
+            //            context.SaveChanges();
+            //        }
 
-                   return Redirect("/AdminPanel/Index");
-                }
-            }
-            catch (Exception exc) { }
+            //       return Redirect("/AdminPanel/Index");
+            //    }
+            //}
+            //catch (Exception exc) { }
 
             return View();
         }

@@ -12,31 +12,31 @@ namespace CRMService.Controllers
     {
         public ActionResult Index()
         {
-            try
-            {
-                using (var context = new CRMServiceEntities())
-                {
-                    var servicemans = (from s in context.Serviceman join se in context.ServicemanExtension 
-                                       on s.ServicemanId equals se.ServicemanId select new { s, se }).Where(x => x.s.DeletionStateCode == 0).ToList();
+            //try
+            //{
+            //    using (var context = new CRMServiceEntities())
+            //    {
+            //        var servicemans = (from s in context.Serviceman join se in context.ServicemanExtension 
+            //                           on s.ServicemanId equals se.ServicemanId select new { s, se }).Where(x => x.s.DeletionStateCode == 0).ToList();
 
-                    var servicemansList = new List<ServicemanModel>();
+            //        var servicemansList = new List<ServicemanModel>();
 
-                    //ViewBag.Servicemans = servicemans;
+            //        //ViewBag.Servicemans = servicemans;
 
-                    foreach(var s in servicemans)
-                    {
-                        servicemansList.Add(new ServicemanModel() 
-                        { 
-                            ServicemanId = s.se.ServicemanId.ToString(),
-                            Name = s.se.Name
-                        });
-                    }
+            //        foreach(var s in servicemans)
+            //        {
+            //            servicemansList.Add(new ServicemanModel() 
+            //            { 
+            //                ServicemanId = s.se.ServicemanId.ToString(),
+            //                Name = s.se.Name
+            //            });
+            //        }
 
-                    return View(servicemansList);
+            //        return View(servicemansList);
         
-                }
-            }
-            catch (Exception exc) { }
+            //    }
+            //}
+            //catch (Exception exc) { }
 
 
             return View();
@@ -70,21 +70,21 @@ namespace CRMService.Controllers
         //public ActionResult Edit(string servicemanId)
         public ActionResult Edit(string servicemanId)
         {
-            try
-            {
-                var strId = new Guid(servicemanId);
+            //try
+            //{
+            //    var strId = new Guid(servicemanId);
 
-                using (var context = new CRMServiceEntities())
-                {
-                    var sman = (from s in context.ServicemanExtension select s).Where(x => x.ServicemanId == strId).FirstOrDefault();
+            //    using (var context = new CRMServiceEntities())
+            //    {
+            //        var sman = (from s in context.ServicemanExtension select s).Where(x => x.ServicemanId == strId).FirstOrDefault();
     
-                    if (sman != null)
-                    {
-                        return View(new ServicemanModel() { Name = sman.Name, Phone = sman.Phone, password = sman.Password });
-                    }
-                }
-            }
-            catch (Exception exc) { }
+            //        if (sman != null)
+            //        {
+            //            return View(new ServicemanModel() { Name = sman.Name, Phone = sman.Phone, password = sman.Password });
+            //        }
+            //    }
+            //}
+            //catch (Exception exc) { }
                         
 
             return View(new ServicemanModel());
@@ -93,17 +93,17 @@ namespace CRMService.Controllers
         [HttpPost]
         public ActionResult Edit(ServicemanModel serviceman)
         {
-            try
-            {
-                DB_BLL.ServicemanDB(serviceman, 2);
+            //try
+            //{
+            //    DB_BLL.ServicemanDB(serviceman, 2);
 
-                ViewBag.Success = "Запись успешно изменена";
-                return View();
-            }
-            catch (Exception exc)
-            {
-                return View(new ServicemanModel());
-            }  
+            //    ViewBag.Success = "Запись успешно изменена";
+            //    return View();
+            //}
+            //catch (Exception exc)
+            //{
+            return View(new ServicemanModel());
+            //}  
         }
 
     }

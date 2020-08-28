@@ -55,9 +55,9 @@ namespace CRMService.Controllers
                                 HrefLink = actualArea.a.AreaHrefLink
                             });
                         }
-
+                */
                         //TMP
-                        /*areasList.Add(new AreaModel()
+                        areasList.Add(new AreaModel()
                         {
                             Name = "Объекты",
                             HrefLink = "/guardobject/"
@@ -67,15 +67,15 @@ namespace CRMService.Controllers
                         {
                             Name = "Номера телефонов",
                             HrefLink = "/contacts/"
-                        });*/
+                        });
                         /////
 
 
-                      //  return View(areasList);
+                        return View(areasList);/*
                  //   }
               //  }*/
 
-                return View(DB_BLL.GetUserAreas());
+                //return View(DB_BLL.GetUserAreas());
 
             }
             catch (Exception exc) { }
