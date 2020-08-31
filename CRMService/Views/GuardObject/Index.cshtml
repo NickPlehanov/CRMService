@@ -39,7 +39,8 @@
         @foreach (var item in Model) {
         <tr>
             <td>
-                @Ajax.ActionLink(item.DateIn, "Info", new { guardobjectId = item.GuardObjectId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target = "_blank" })
+                @*@Ajax.ActionLink(item.DateIn.ToString(), "Info", new { guardobjectId = item.GuardObjectId }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" }, new { target = "_blank" })*@
+                @item.DateIn
             </td>
 
             <td>

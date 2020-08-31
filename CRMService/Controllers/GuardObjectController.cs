@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using CRMService.Data.A28;
+using System.Security.Cryptography.X509Certificates;
+using System.Runtime.CompilerServices;
 
 namespace CRMService.Controllers {
     public class GuardObjectController : Controller {
@@ -181,6 +183,38 @@ namespace CRMService.Controllers {
             }
             catch (Exception exc) { return null; }
         }
+        private DateTime? ExtractDate(string @in) {
+            string result = "";
+            if (!string.IsNullOrEmpty(@in)) {
+                foreach (char item in @in.ToCharArray()) {
+                    if (char.IsDigit(item) || item == '.')
+                        result += item;
+                }
+                DateTime r;
+                if (DateTime.TryParse(result, out r))
+                    return r.Date;
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+        private string ExtractDate2(string @in) {
+            string result = "";
+            if (!string.IsNullOrEmpty(@in)) {
+                foreach (char item in @in.ToCharArray()) {
+                    if (char.IsDigit(item) || item == '.')
+                        result += item;
+                }
+                DateTime r;
+                if (DateTime.TryParse(result, out r))
+                    return r.ToShortDateString();
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
 
         public ActionResult Index(int? page, int searchParam = 0, string searchString = "") {
             try {
@@ -190,12 +224,27 @@ namespace CRMService.Controllers {
                 if (objects.Any()) {
                     using (ObjExtFieldContext objExtFieldContext = new ObjExtFieldContext()) {
                         foreach (Data.A28.ObjectA28 item in objects) {
+                            List<ObjExtField> exObj = objExtFieldContext.ObjExtField.Where(x => x.ObjectID == item.ObjectID).ToList<ObjExtField>();
+                            //var t = DateTime.TryParse(objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue, out _) ?
+                            //        DateTime.Parse(objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue).ToString("dd.MM.yyyy") :
+                            //        string.IsNullOrEmpty(objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue) ?
+                            //            " - " : objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue;
+                            //var t = exObj.FirstOrDefault(y => y.ExtFieldID == 119).ExtFieldValue;
+                            DateTime _dateIn;
                             GuardObjectList.Add(new GuardObjectModel() {
                                 GuardObjectId = item.ObjectID.ToString(),
-                                DateIn = DateTime.TryParse(objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue, out _) ?
+                                /*DateIn = DateTime.TryParse(objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue, out _) ?
                                     DateTime.Parse(objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue).ToString("dd.MM.yyyy") :
                                     string.IsNullOrEmpty(objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue) ?
-                                        " - " : objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue,
+                                        " - " : objExtFieldContext.ObjExtField.FirstOrDefault(x => x.ExtFieldID == 119 && x.ObjectID == item.ObjectID).ExtFieldValue,*/
+                                _DateIn = exObj.Any(x => x.ExtFieldID == 119) ?
+                                    DateTime.TryParse(exObj.FirstOrDefault(x => x.ExtFieldID == 119).ExtFieldValue, out _dateIn) ? _dateIn.Date /*new DateTime(_dateIn.Year, _dateIn.Month, _dateIn.Day)*/:
+                                        ExtractDate(exObj.FirstOrDefault(x => x.ExtFieldID == 119).ExtFieldValue) :
+                                null,
+                                DateIn = exObj.Any(x => x.ExtFieldID == 119) ?
+                                    DateTime.TryParse(exObj.FirstOrDefault(x => x.ExtFieldID == 119).ExtFieldValue, out _dateIn) ? _dateIn.ToShortDateString() :
+                                        ExtractDate2(exObj.FirstOrDefault(x => x.ExtFieldID == 119).ExtFieldValue) :
+                                null,
                                 //TODO: вероятно требуется обратное преобразование из базы андромеды
                                 //Number = item.ObjectNumber.ToString(),
                                 Number = Convert.ToString(item.ObjectNumber, 16),
@@ -206,7 +255,7 @@ namespace CRMService.Controllers {
                     }
                 }
                 if (GuardObjectList.Any()) {
-                    var model = new StaticPagedList<GuardObjectModel>(GuardObjectList, (page ?? 1), 3000, objects.Count);
+                    var model = new StaticPagedList<GuardObjectModel>(GuardObjectList.OrderBy(x => x._DateIn), (page ?? 1), 3000, objects.Count);
 
                     ViewBag.SearchString = searchString;
                     return View(model);
@@ -214,6 +263,7 @@ namespace CRMService.Controllers {
                 else {
                     GuardObjectList.Add(new GuardObjectModel() {
                         GuardObjectId = " ",
+                        _DateIn = null,
                         DateIn = " ",
                         Number = " ",
                         Name = " ",
@@ -403,13 +453,12 @@ namespace CRMService.Controllers {
                                                 _item.ExtFieldValue
                                                 ));
                                             }
-                                            if (extFieldContext.ExtField.FirstOrDefault(x => x.RecordDeleted == false && x.ExtFieldID == _item.ExtFieldID).ExtFieldID == 119)
-                                                {
+                                            if (extFieldContext.ExtField.FirstOrDefault(x => x.RecordDeleted == false && x.ExtFieldID == _item.ExtFieldID).ExtFieldID == 119) {
                                                 DateTime _dt;
                                                 _ExtFields.Add(new _extFields(
                                                 extFieldContext.ExtField.FirstOrDefault(x => x.RecordDeleted == false && x.ExtFieldID == _item.ExtFieldID).ExtFieldName,
                                                 DateTime.TryParse(_item.ExtFieldValue, out _dt) ? _dt.ToString("dd.MM.yyyy") : _item.ExtFieldValue
-                                                )) ;
+                                                ));
                                             }
                                             //extFields = extFieldContext.ExtField.Where(x => x.RecordDeleted == false && x.ExtFieldID == _item.ExtFieldID).ToList();
                                         }
@@ -462,10 +511,10 @@ namespace CRMService.Controllers {
                 List<ObjSchedule> objSchedules = new List<ObjSchedule>();
                 using (ObjScheduleContext objScheduleContext = new ObjScheduleContext()) {
                     objSchedules = objScheduleContext.ObjSchedule.Where(x => x.ObjectID == objID).ToList();
-                    if (objSchedules.Any()) 
+                    if (objSchedules.Any())
                         if (objects.Any(x => x.ArmSchedule_EarlyArm == true || x.ArmSchedule_LaterArm == true || x.ArmSchedule_EarlyDisarm == true || x.ArmSchedule_LaterDisarm == true))
                             _AdditionalServices.Add(new _additionalServices("КР", true));
-                    
+
                     //if (objSchedules.Any()) {
                     //    _AdditionalServices.Add(new _additionalServices("КР", true));
                     //}
@@ -497,9 +546,9 @@ namespace CRMService.Controllers {
                     ExtFields = _ExtFields,
                     Owners = objCusts,
                     RemoteProgrammingGUID = string.IsNullOrEmpty(objects.FirstOrDefault().TransmitterID) ? "да" : "нет",
-                    CustAdmins= objCustsAdmins,
+                    CustAdmins = objCustsAdmins,
                     SendSMS = ePs,
-                    addServices= _AdditionalServices
+                    addServices = _AdditionalServices
 
                     //Name = obj.s.Name,
                     //Address = obj.s.Address,

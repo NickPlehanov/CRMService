@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using CRMService.Data;
 using CRMService.Data.A28;
@@ -11,6 +12,7 @@ namespace CRMService.Models {
 
         [Display(Name = "Дата ввода")]
         public string DateIn { get; set; }
+        public DateTime? _DateIn { get; set; }
 
         [Display(Name = "Название")]
         public string Name { get; set; }
