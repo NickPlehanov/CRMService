@@ -255,7 +255,7 @@ namespace CRMService.Controllers {
                     }
                 }
                 if (GuardObjectList.Any()) {
-                    var model = new StaticPagedList<GuardObjectModel>(GuardObjectList.OrderBy(x => x._DateIn), (page ?? 1), 3000, objects.Count);
+                    var model = new StaticPagedList<GuardObjectModel>(GuardObjectList.OrderByDescending(x => x._DateIn), (page ?? 1), 3000, objects.Count);
 
                     ViewBag.SearchString = searchString;
                     return View(model);

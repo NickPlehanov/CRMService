@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
+    <Compile Include="Controllers\BypassController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\GuardObjectController.cs" />
@@ -196,7 +197,6 @@
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Models\AreaModel.cs" />
-    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\GuardObjectModel.cs" />
     <Compile Include="Models\ServicemanModel.cs" />
     <Compile Include="Models\ServiceorderModel.cs" />
@@ -207,6 +207,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\CardsCss.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -262,6 +263,7 @@
     <Content Include="Views\AdminPanel\Index.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\AdminPanel\AddUser.cshtml" />
+    <Content Include="Views\Bypass\Bypass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

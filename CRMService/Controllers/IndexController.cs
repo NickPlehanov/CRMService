@@ -10,25 +10,21 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 
-namespace CRMService.Controllers
-{
-    public class IndexController : Controller
-    {
-        public ActionResult Index()
-        {
+namespace CRMService.Controllers {
+    public class IndexController : Controller {
+        public ActionResult Index() {
             var areasList = new List<AreaModel>();
 
-            try
-            {
+            try {
 
-               // DB_BLL.UsersSync();
+                // DB_BLL.UsersSync();
 
 
-               // //var currentUser = Environment.UserDomainName + "\\" + Environment.UserName; //User.Identity.Name.ToString();
+                // //var currentUser = Environment.UserDomainName + "\\" + Environment.UserName; //User.Identity.Name.ToString();
                 var currentUser = System.Web.HttpContext.Current.User.Identity.Name;
 
-               // //ViewBag.CurrentUser = User.Identity.Name;// currentUser;
-               // //var currentUser = "VZ\\nik";
+                // //ViewBag.CurrentUser = User.Identity.Name;// currentUser;
+                // //var currentUser = "VZ\\nik";
 
                 ViewBag.CurrentUser = currentUser;
 
@@ -56,22 +52,24 @@ namespace CRMService.Controllers
                             });
                         }
                 */
-                        //TMP
-                        areasList.Add(new AreaModel()
-                        {
-                            Name = "Объекты",
-                            HrefLink = "/guardobject/"
-                        });
+                //TMP
+                areasList.Add(new AreaModel() {
+                    Name = "Объекты",
+                    HrefLink = "/guardobject/"
+                });
 
-                        areasList.Add(new AreaModel()
-                        {
-                            Name = "Номера телефонов",
-                            HrefLink = "/contacts/"
-                        });
-                        /////
+                areasList.Add(new AreaModel() {
+                    Name = "Номера телефонов",
+                    HrefLink = "/contacts/"
+                });
+                //areasList.Add(new AreaModel() {
+                //    Name = "Обходные листы",
+                //    HrefLink = "/bypass/"
+                //});
+                /////
 
 
-                        return View(areasList);/*
+                return View(areasList);/*
                  //   }
               //  }*/
 

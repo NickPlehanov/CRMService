@@ -35,7 +35,7 @@ namespace CRMService
             {
                 //DB_BLL.ObjectSync();
 
-                Thread.Sleep(TimeSpan.FromMinutes(30));       //ВКЛЮЧИТЬ В РЕЛИЗЕ!!!!!
+                //Thread.Sleep(TimeSpan.FromMinutes(30));       //ВКЛЮЧИТЬ В РЕЛИЗЕ!!!!!
             }
         }
     }

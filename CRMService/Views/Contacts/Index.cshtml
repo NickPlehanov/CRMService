@@ -1,5 +1,5 @@
-﻿@model List<CRMService.Models.ContactModel>
-
+﻿@model List<CRMService.Data.A28.ObjCust>
+<link href="~/Content/CardsCss.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/_LayoutPage1.cshtml";
@@ -8,61 +8,38 @@
 
 @ViewBag.CurrentUser
 
-<br /><br />
-
+<br />
+<br />
 <div>
-    <input id="searchStr" type="text" placeholder="Поисковая строка..." />    
+    <h3>Поиск контакта</h3>
+    @using (Html.BeginForm("Index", "Contacts", FormMethod.Post)) {
+        @Html.TextBox("searchString", null, new { placeholder = "Строка поиска..." })
+
+        <input type="submit" value="Искать" />
+    }
 </div>
 
-<div id="data">
-</div>
 
-<div id="container">
-</div>
-
-
-<script>
-    if (@Model.Count > 1)
-    {
-        @foreach (var item in Model)
-        {
-            @:$('#data').append("<div contactid='@item.ContactId' style='display:none;' firstname='@item.Firstname' lastname='@item.Lastname' workphone='@item.Workphone' workplace='@item.Workplace' city='@item.City' address='@item.Address'>  </div>");
-                                                }
-
-        $('#searchStr').on('input', function (e) {
-            if ($('#searchStr').val() == '')
-                $('#container').html('');
-            else {
-                if ($('#searchStr').val().length > 3) {
-                    $('#container').html('');
-
-                    $('#data div').each(function () {
-                        if ($(this).attr('lastname').toLowerCase().indexOf($('#searchStr').val()) != -1) {
-                            $('#container').append("<div style='width:25%; border:1px solid black;margin-top:10px;padding: 5px; float: left; margin-right: 10px;'><a style='color:#d08600' href='/contacts/?contactid=" +
-                                $(this).attr('contactid') + "'>" + $(this).attr('lastname') + ' ' + $(this).attr('firstname') +
-                                "</a><br/><br />рабочий телефон: " + $(this).attr('workphone') + "<br /><br />" + $(this).attr('workplace') + "<br /><br />" + $(this).attr('city') + ", " + $(this).attr('address') + "</div>");
-                        }
-                    });
-                }
-                else {
-                    $('#container').html('');
-                }
+    @*@if (Model[0].ObjectNumber != -1) {*@
+    @foreach (var item in Model.OrderBy(x => x.ObjectNumber)) {
+        if (item.ObjectNumber != -1) {
+                <div class="card">
+                    <div class="container">
+                        <h3>№ объекта:@Ajax.ActionLink(item.ObjectNumber.ToString(), "Info", "GuardObject", new { guardobjectId = item.ObjectID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" })</h3>                        
+                        <b>Имя:</b> @item.ObjCustName<br />
+                        <b>Должность:</b> @item.ObjCustTitle<br />
+                        <p><b>Телефоны</b></p>
+                        @item.ObjCustPhone1
+                        @item.ObjCustPhone2
+                        @item.ObjCustPhone3
+                        @item.ObjCustPhone4
+                        @item.ObjCustPhone5
+                        <p><b>Адрес</b></p>
+                        @item.ObjCustAddress
+                        <p><b>Личный кабинет</b></p>
+                        @item.Role
+                    </div>
+                </div>
             }
-        });
-    }
-    else if (@Model.Count == 1)
-    {
-        $('#searchStr').hide();
-
-        $('#container').append("<div style='margin-top:10px;padding: 5px;'>" +
-                                    "<div style='border-bottom:1px solid grey;padding: 5px;'><div style='float:left;font-weight: bold;'>Фамилия</div>" + "<div style='    height: 18px;margin-left:25%;'>@Model[0].Lastname</div></div>" +
-                                    "<div style='border-bottom:1px solid grey;padding: 5px;'><div style='float:left;font-weight: bold;'>Имя</div>" + "<div style='    height: 18px;margin-left:25%;'>@Model[0].Firstname</div></div>" +
-                                    "<div style='border-bottom:1px solid grey;padding: 5px;'><div style='float:left;font-weight: bold;'>Должность</div>" + "<div style='    height: 18px;margin-left:25%;'>@Model[0].Workplace</div></div>" +
-                                    "<div style='border-bottom:1px solid grey;padding: 5px;'><div style='float:left;font-weight: bold;'>Рабочий телефон</div>" + "<div style='    height: 18px;margin-left:25%;'>@Model[0].Workphone</div></div>" +
-                                    "<div style='border-bottom:1px solid grey;padding: 5px;'><div style='float:left;font-weight: bold;'>Адрес</div>" + "<div style='    height: 18px;margin-left:25%;'>@Model[0].Address</div></div>" +
-                                    "<div style='border-bottom:1px solid grey;padding: 5px;'><div style='float:left;font-weight: bold;'>Город</div>" + "<div style='    height: 18px;margin-left:25%;'>@Model[0].City</div></div>" +
-                               "</div>");
-    }
-
-
-</script>
+        }
+    @*  *@

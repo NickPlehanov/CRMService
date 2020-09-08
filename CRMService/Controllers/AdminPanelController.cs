@@ -11,10 +11,6 @@ namespace CRMService.Controllers
     {
         public ActionResult Index()
         {
-
-
-
-
             return View();
         }
 

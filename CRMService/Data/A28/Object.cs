@@ -30,6 +30,7 @@ namespace CRMService.Data.A28 {
         public bool ArmSchedule_EarlyDisarm { get; set; }
         public bool ArmSchedule_ControlDisarm { get; set; }
         public bool ArmSchedule_LaterDisarm { get; set; }
+        public bool Disable { get; set; }
     }
     public class ObjectContext : DbContext {
         public ObjectContext() : base("A28Entity") { }
