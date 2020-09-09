@@ -1,0 +1,44 @@
+﻿@model  List<CRMService.Models.GBRLate>
+<link href="~/Content/CardsCss.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+
+@ViewBag.CurrentUser
+
+<br />
+<br />
+<div>
+    <h3>Поиск контакта</h3>
+    @using (Html.BeginForm("Index", "GBRLate", FormMethod.Post)) {
+        <b>Дата и время начала</b>
+        @Html.TextBox("begin", null,"{0:dd.MM.yyyy hh:mm:ss}", new { placeholder = "Строка поиска...", type = "datetime-local" })
+        <br />
+        <b>Дата и время окончания</b>
+        @Html.TextBox("end", null, "{0:dd.MM.yyyy hh:mm:ss}", new { placeholder = "Строка поиска...", type = "datetime-local" })
+        <br />
+        <b>Опоздание(мин)</b>
+        @Html.TextBox("late", null, new { placeholder = "Опаздание (мин)...", type = "number" })
+        <br />
+        <input type="submit" value="Искать" />
+    }
+</div>
+<div>
+    @foreach (CRMService.Models.GBRLate item in Model) {
+        if (!string.IsNullOrEmpty(item.result)) {
+            <div class="card">
+                <div class="container">
+                    <h3>@item.new_number @item.new_objname</h3>
+                    Опоздание: @item.delta <br />
+                    Тревога: @item.new_alarm_dt <br />
+                    Отправление: @item.new_departure <br />
+                    Прибытие: @item.new_arrival <br />
+                    Отмена: @item.new_cancel <br />
+                    Описание: @item.new_name <br />
+                </div>
+            </div>
+        }        
+    }
+</div>

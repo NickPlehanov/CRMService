@@ -9,24 +9,7 @@ using System.Web.Mvc;
 
 namespace CRMService.Controllers {
     public class ContactsController : Controller {
-        public string NormalizePhone(string param) {
-            if (!string.IsNullOrEmpty(param) && !string.IsNullOrWhiteSpace(param)) {
-                if (long.TryParse(param, out _)) {
-                    string g = param.Replace("-", "").Replace(" ", "").Replace("+", "").ToLower();
-                    if (g.Length == 11) {
-                        if (g.Substring(0, 2) == "79")
-                            return g.Remove(0, 1).Insert(0, "8");
-                        else
-                            return g;
-                    }
-                    return g;
-                }
-                else
-                    return param.Replace("-", "").Replace(" ", "").Replace("+", "").ToLower();
-            }
-            else
-                return param;
-        }
+        
 
         public List<ObjCust> SearchContacts(string searchString) {
             if (string.IsNullOrEmpty(searchString))
@@ -43,8 +26,8 @@ namespace CRMService.Controllers {
                             result += item;
                         else if (char.IsLetter(item) || item==' ')
                                 text +=item;
-                    }
-                    result = NormalizePhone(result);
+                    }                    
+                    result = CRMService.Helpers.HelpersMethods.NormalizePhone(result);
                     //foreach (ObjCust item in t) {
                     //    if (item.)
                     //}
@@ -83,8 +66,20 @@ namespace CRMService.Controllers {
                             foreach (ObjAdmin item in admins) {
                                 using (ObjectContext objectContext = new ObjectContext()) {
                                     foreach (ObjectA28 _item in objectContext.ObjectA28.Where(x => x.ObjAdminID == item.ObjAdminID)) {
-                                        objCusts.Add(new ObjCust() { N_ObjCustPhone1 = item.AdminPhone, ObjCustName = item.AdminName, N_ObjCustTitle = "Администратор ЛК", ObjectID=_item.ObjectID, ObjectNumber=_item.ObjectNumber });
-                                    }                                    
+                                        objCusts.Add(new ObjCust() { N_ObjCustPhone1 = item.AdminPhone, ObjCustName = item.AdminName, N_ObjCustTitle = "Администратор ЛК", ObjectID = _item.ObjectID, ObjectNumber = _item.ObjectNumber });
+                                    }
+                                }
+                            }
+                        }
+                        else if (!string.IsNullOrEmpty(text)) {
+                            List<ObjAdmin> admins1 = Fulladmins.Where(x => x.AdminName.ToLower().Contains(text.ToLower())).ToList();
+                            if (admins1.Any()) {
+                                foreach (ObjAdmin item in admins1) {
+                                    using (ObjectContext objectContext = new ObjectContext()) {
+                                        foreach (ObjectA28 _item in objectContext.ObjectA28.Where(x => x.ObjAdminID == item.ObjAdminID)) {
+                                            objCusts.Add(new ObjCust() { N_ObjCustPhone1 = item.AdminPhone, ObjCustName = item.AdminName, N_ObjCustTitle = "Администратор ЛК", ObjectID = _item.ObjectID, ObjectNumber = _item.ObjectNumber });
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -109,8 +109,8 @@ namespace CRMService.Data.A28 {
             }
         }
         private string _N_ObjCustPhone1 {
-            get => NormalizePhone(ObjCustPhone1);
-            set => NormalizePhone(value);
+            get => CRMService.Helpers.HelpersMethods.NormalizePhone(ObjCustPhone1);
+            set => CRMService.Helpers.HelpersMethods.NormalizePhone(value);
         }
         [NotMapped]
         public string N_ObjCustPhone2 {
@@ -120,8 +120,8 @@ namespace CRMService.Data.A28 {
             }
         }
         private string _N_ObjCustPhone2 {
-            get => NormalizePhone(ObjCustPhone2);
-            set => NormalizePhone(value);
+            get => CRMService.Helpers.HelpersMethods.NormalizePhone(ObjCustPhone2);
+            set => CRMService.Helpers.HelpersMethods.NormalizePhone(value);
         }
         [NotMapped]
         public string N_ObjCustPhone3 {
@@ -131,8 +131,8 @@ namespace CRMService.Data.A28 {
             }
         }
         private string _N_ObjCustPhone3 {
-            get => NormalizePhone(ObjCustPhone3);
-            set => NormalizePhone(value);
+            get => CRMService.Helpers.HelpersMethods.NormalizePhone(ObjCustPhone3);
+            set => CRMService.Helpers.HelpersMethods.NormalizePhone(value);
         }
         [NotMapped]
         public string N_ObjCustPhone4 {
@@ -142,8 +142,8 @@ namespace CRMService.Data.A28 {
             }
         }
         private string _N_ObjCustPhone4 {
-            get => NormalizePhone(ObjCustPhone4);
-            set => NormalizePhone(value);
+            get => CRMService.Helpers.HelpersMethods.NormalizePhone(ObjCustPhone4);
+            set => CRMService.Helpers.HelpersMethods.NormalizePhone(value);
         }
         [NotMapped]
         public string N_ObjCustPhone5 {
@@ -153,8 +153,8 @@ namespace CRMService.Data.A28 {
             }
         }
         private string _N_ObjCustPhone5 {
-            get => NormalizePhone(ObjCustPhone5);
-            set => NormalizePhone(value);
+            get => CRMService.Helpers.HelpersMethods.NormalizePhone(ObjCustPhone5);
+            set => CRMService.Helpers.HelpersMethods.NormalizePhone(value);
         }
         [NotMapped]
         public string N_ObjCustTitle {
@@ -164,8 +164,8 @@ namespace CRMService.Data.A28 {
             }
         }
         private string _N_ObjCustTitle {
-            get => NormalizePhone(ObjCustTitle);
-            set => NormalizePhone(value);
+            get => CRMService.Helpers.HelpersMethods.NormalizePhone(ObjCustTitle);
+            set => CRMService.Helpers.HelpersMethods.NormalizePhone(value);
         }
 
         [NotMapped]
@@ -200,24 +200,24 @@ namespace CRMService.Data.A28 {
         //    else
         //        return param;
         //}
-        public string NormalizePhone(string param) {
-            if (!string.IsNullOrEmpty(param) && !string.IsNullOrWhiteSpace(param)) {
-                if (long.TryParse(param, out _)) {
-                    string g = param.Replace("-", "").Replace(" ", "").Replace("+", "").ToLower();
-                    if (g.Length == 11) {
-                        if (g.Substring(0, 2) == "79")
-                            return g.Remove(0, 1).Insert(0, "8");
-                        else
-                            return g;
-                    }
-                    return g;
-                }
-                else
-                    return param.Replace("-", "").Replace(" ", "").Replace("+", "").ToLower();
-            }
-            else
-                return param;
-        }
+        //public string NormalizePhone(string param) {
+        //    if (!string.IsNullOrEmpty(param) && !string.IsNullOrWhiteSpace(param)) {
+        //        if (long.TryParse(param, out _)) {
+        //            string g = param.Replace("-", "").Replace(" ", "").Replace("+", "").ToLower();
+        //            if (g.Length == 11) {
+        //                if (g.Substring(0, 2) == "79")
+        //                    return g.Remove(0, 1).Insert(0, "8");
+        //                else
+        //                    return g;
+        //            }
+        //            return g;
+        //        }
+        //        else
+        //            return param.Replace("-", "").Replace(" ", "").Replace("+", "").ToLower();
+        //    }
+        //    else
+        //        return param;
+        //}
     }
     public class ObjCustContext : DbContext {
         public ObjCustContext() : base("A28Entity") { }

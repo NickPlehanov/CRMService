@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\BypassController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\GBRLateController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\GuardObjectController.cs" />
     <Compile Include="Controllers\ServicemanController.cs" />
@@ -189,14 +190,17 @@
     <Compile Include="Data\A28\ObjExtField.cs" />
     <Compile Include="Data\A28\ObjSchedule.cs" />
     <Compile Include="Data\A28\ObjType.cs" />
+    <Compile Include="Data\Andromeda.cs" />
     <Compile Include="Data\DB_BLL.cs" />
     <Compile Include="Data\_additionalServices.cs" />
     <Compile Include="Data\_extFields.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HelpersMethods.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\AreaModel.cs" />
+    <Compile Include="Models\GBRLate.cs" />
     <Compile Include="Models\GuardObjectModel.cs" />
     <Compile Include="Models\ServicemanModel.cs" />
     <Compile Include="Models\ServiceorderModel.cs" />
@@ -264,6 +268,7 @@
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\AdminPanel\AddUser.cshtml" />
     <Content Include="Views\Bypass\Bypass.cshtml" />
+    <Content Include="Views\GBRLate\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

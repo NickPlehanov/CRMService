@@ -59,13 +59,19 @@ namespace CRMService.Controllers {
                 });
 
                 areasList.Add(new AreaModel() {
-                    Name = "Номера телефонов",
+                    Name = "Поиск контактов (поиск по телефону и имени)",
                     HrefLink = "/contacts/"
                 });
-                //areasList.Add(new AreaModel() {
-                //    Name = "Обходные листы",
-                //    HrefLink = "/bypass/"
-                //});
+                if (currentUser.Contains(@"VZ\pna"))
+                    areasList.Add(new AreaModel() {
+                        Name = "Обходные листы",
+                        HrefLink = "/bypass/"
+                    });
+                if (currentUser.Contains(@"VZ\pna"))
+                    areasList.Add(new AreaModel() {
+                        Name = "Опоздания ГБР",
+                        HrefLink = "/GBRLate/"
+                    });
                 /////
 
 
