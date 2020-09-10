@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Dynamic;
@@ -31,6 +32,27 @@ namespace CRMService.Data.A28 {
         public bool ArmSchedule_ControlDisarm { get; set; }
         public bool ArmSchedule_LaterDisarm { get; set; }
         public bool Disable { get; set; }
+
+        [NotMapped]
+        public int ObjNumber {
+            get => _ObjNumber;
+            set {
+                _ObjNumber = value;
+            }
+        }
+        private int _ObjNumber {
+            get {
+                int _o = -1;
+                if (int.TryParse(ObjectNumber.ToString(), out _o))
+                    return Convert.ToInt32(Convert.ToString(_o, 16));
+                else
+                    return -1;
+            }
+            set => value = string.IsNullOrEmpty(value.ToString()) ? -1 : value;
+            //set {
+            //    _ObjNumber = value;
+            //}
+        }
     }
     public class ObjectContext : DbContext {
         public ObjectContext() : base("A28Entity") { }

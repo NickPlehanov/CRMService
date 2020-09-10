@@ -1,5 +1,30 @@
-﻿.card {
-    /* Add shadows to create the "card" effect */
+﻿.card_green {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    max-width: 300px;
+    display: flex;
+    border: 1px solid #AEF7BB;
+    height: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: linear-gradient(-75deg, #78DF8B, #FFFFFF)
+} 
+.card_red:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+}
+.card_blue:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+}
+.card_green:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+} 
+.container {
+    padding: 2px 16px;
+} 
+.card_red {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
@@ -11,15 +36,19 @@
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
-    background: linear-gradient(-75deg, #78DF8B, #FFFFFF)
+    background: linear-gradient(-75deg, #FF6B6B, #FFFFFF)
 }
-
-    /* On mouse-over, add a deeper shadow */
-    .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
-    }
-
-/* Add some padding inside the card container */
-.container {
-    padding: 2px 16px;
+.card_blue {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    max-width: 300px;
+    display: inline-flex;
+    border: 1px solid #AEF7BB;
+    height: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: linear-gradient(-75deg, #6B98FF, #FFFFFF)
 }

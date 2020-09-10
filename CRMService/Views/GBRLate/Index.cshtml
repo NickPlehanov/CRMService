@@ -1,5 +1,5 @@
 ﻿@model  List<CRMService.Models.GBRLate>
-<link href="~/Content/CardsCss.css" rel="stylesheet" type="text/css" />
+<link href="Content/CardsCss.css" rel="stylesheet"/>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/_LayoutPage1.cshtml";
@@ -11,13 +11,13 @@
 <br />
 <br />
 <div>
-    <h3>Поиск контакта</h3>
+    <h3>Укажите данные</h3>
     @using (Html.BeginForm("Index", "GBRLate", FormMethod.Post)) {
         <b>Дата и время начала</b>
-        @Html.TextBox("begin", null,"{0:dd.MM.yyyy hh:mm:ss}", new { placeholder = "Строка поиска...", type = "datetime-local" })
+        @Html.TextBox("begin", DateTime.Now.ToString(), "{0:dd.MM.yyyy hh:mm:ss}", new { placeholder = "Строка поиска...", type = "datetime-local" })
         <br />
         <b>Дата и время окончания</b>
-        @Html.TextBox("end", null, "{0:dd.MM.yyyy hh:mm:ss}", new { placeholder = "Строка поиска...", type = "datetime-local" })
+        @Html.TextBox("end", DateTime.Now.ToString(), "{0:dd.MM.yyyy hh:mm:ss}", new { placeholder = "Строка поиска...", type = "datetime-local" })
         <br />
         <b>Опоздание(мин)</b>
         @Html.TextBox("late", null, new { placeholder = "Опаздание (мин)...", type = "number" })
@@ -26,12 +26,88 @@
     }
 </div>
 <div>
-    @foreach (CRMService.Models.GBRLate item in Model) {
+    @foreach (CRMService.Models.GBRLate item in Model.OrderByDescending(x => x.delta)) {
         if (!string.IsNullOrEmpty(item.result)) {
-            <div class="card">
+            if (double.Parse(item._delta_operator) < double.Parse("3")) {
+                <div class="card_blue">
+                    <div class="container">
+                        <h3>
+                            @Ajax.ActionLink(item.new_number.ToString()+" "+item.new_objname, "Info", "GuardObject", new { guardobjectId = item.ObjectID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" })
+                                            </h3>
+                        <p>
+                            ОС: @item.os
+                            ПС: @item.ps
+                            ТРС: @item.tpc
+                        </p>
+                        <p>
+                            Вызов х/о: @item.owner
+                            Полиция: @item.police
+                            Акт: @item.act
+                            З/т: @item.order
+                        </p>
+                        @*<p>Группа: @item.new_group</p>*@
+                    <p>Группа: @Ajax.ActionLink(item.new_group.ToString(), "GroupInfo", "GBRLate", new { group = item.new_group }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" })</p>
+                        <p>Опоздание: @item.delta <br /></p>
+                        Тревога: @item.new_alarm_dt <br />
+                        Отправление: @item.new_departure <br />
+                        Прибытие: @item.new_arrival <br />
+                        Отмена: @item.new_cancel <br />
+                        Описание: @item.new_name <br />
+                    </div>
+                </div>
+            }
+            else if (double.Parse(item._delta_operator) >= double.Parse("3")) {
+                <div class="card_red">
+                    <div class="container">
+                        <h3>
+                            @Ajax.ActionLink(item.new_number.ToString() + " " + item.new_objname, "Info", "GuardObject", new { guardobjectId = item.ObjectID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" })
+                        </h3>
+                        <p>
+                            ОС: @item.os
+                            ПС: @item.ps
+                            ТРС: @item.tpc
+                        </p>
+                        <p>
+                            Вызов х/о: @item.owner
+                            Полиция: @item.police
+                            Акт: @item.act
+                            З/т: @item.order
+                        </p>
+                        <p>Группа: @item.new_group</p>
+                        <p>Опоздание: @item.delta <br /></p>
+                        Тревога: @item.new_alarm_dt <br />
+                        Отправление: @item.new_departure <br />
+                        Прибытие: @item.new_arrival <br />
+                        Отмена: @item.new_cancel <br />
+                        Описание: @item.new_name <br />
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+<div>
+    @foreach (CRMService.Models.GBRLate item in Model.OrderByDescending(z => z.new_alarm_dt)) {
+        if (!string.IsNullOrEmpty(item.result)) {
+            <div class="card_green">
                 <div class="container">
-                    <h3>@item.new_number @item.new_objname</h3>
-                    Опоздание: @item.delta <br />
+                    <h3>
+                        @Ajax.ActionLink(item.new_number.ToString() + " " + item.new_objname, "Info", "GuardObject", new { guardobjectId = item.ObjectID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" })
+                    </h3>
+                    <p>
+                        ОС: @item.os
+                        ПС: @item.ps
+                        ТРС: @item.tpc
+                    </p>
+                    <p>
+                        Вызов х/о: @item.owner
+                        Полиция: @item.police
+                        Акт: @item.act
+                        З/т: @item.order
+                    </p>
+                    <p>Группа: @item.new_group</p>
+                    <p>Опоздание: @item.delta <br /></p>
                     Тревога: @item.new_alarm_dt <br />
                     Отправление: @item.new_departure <br />
                     Прибытие: @item.new_arrival <br />
@@ -39,6 +115,6 @@
                     Описание: @item.new_name <br />
                 </div>
             </div>
-        }        
+        }
     }
 </div>

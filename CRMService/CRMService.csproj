@@ -192,6 +192,7 @@
     <Compile Include="Data\A28\ObjType.cs" />
     <Compile Include="Data\Andromeda.cs" />
     <Compile Include="Data\DB_BLL.cs" />
+    <Compile Include="Data\GroupInfo.cs" />
     <Compile Include="Data\_additionalServices.cs" />
     <Compile Include="Data\_extFields.cs" />
     <Compile Include="Global.asax.cs">
