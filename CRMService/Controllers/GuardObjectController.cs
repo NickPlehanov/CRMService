@@ -462,6 +462,13 @@ namespace CRMService.Controllers {
                                             }
                                             //extFields = extFieldContext.ExtField.Where(x => x.RecordDeleted == false && x.ExtFieldID == _item.ExtFieldID).ToList();
                                         }
+                                        using (DeviceTypeContext deviceTypeContext = new DeviceTypeContext()) {
+                                            string DeviceName = null;
+                                            if (item.DeviceTypeID.HasValue)
+                                                DeviceName = deviceTypeContext.DeviceType.FirstOrDefault(x => x.DeviceTypeID == item.DeviceTypeID).Name;
+                                            if (!string.IsNullOrEmpty(DeviceName))
+                                                _ExtFields.Add(new _extFields("Оборудование", DeviceName));
+                                        }
                                     }
                                 }
                             }
@@ -471,13 +478,15 @@ namespace CRMService.Controllers {
                 List<EPCustomer> ePCustomers = new List<EPCustomer>();
                 List<EP> ePs = new List<EP>();
                 using (EPCustomerContext ePCustomerContext = new EPCustomerContext()) {
-                    int onum = objects.FirstOrDefault().ObjectNumber;
-                    ePCustomers = ePCustomerContext.EPCustomer.Where(x => x.BeginningNumber <= onum && x.EndNumber >= onum).ToList();
-                    using (EPContext ePContext = new EPContext()) {
-                        foreach (EPCustomer item in ePCustomers) {
-                            foreach (EP _item in ePContext.EP.Where(x => x.ProcID == item.OwnerRecordID && x.Enabled == true && x.ProcGroupID == 30))
-                                ePs.Add(_item);
-                            //TODO: Вероятно номер телефона мы уже получили и дальше не надо ничего делать с смсками.
+                    if (objects.Any()) {
+                        int onum = objects.FirstOrDefault().ObjectNumber;
+                        ePCustomers = ePCustomerContext.EPCustomer.Where(x => x.BeginningNumber <= onum && x.EndNumber >= onum).ToList();
+                        using (EPContext ePContext = new EPContext()) {
+                            foreach (EPCustomer item in ePCustomers) {
+                                foreach (EP _item in ePContext.EP.Where(x => x.ProcID == item.OwnerRecordID && x.Enabled == true && x.ProcGroupID == 30))
+                                    ePs.Add(_item);
+                                //TODO: Вероятно номер телефона мы уже получили и дальше не надо ничего делать с смсками.
+                            }
                         }
                     }
                 }

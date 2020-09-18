@@ -23,7 +23,7 @@
     @*@if (Model[0].ObjectNumber != -1) {*@
     @foreach (var item in Model.OrderBy(x => x.ObjectNumber)) {
         if (item.ObjectNumber != -1) {
-                <div class="card">
+                <div class="card_green">
                     <div class="container">
                         <h3>№ объекта:@Ajax.ActionLink(item.ObjectNumber.ToString(), "Info", "GuardObject", new { guardobjectId = item.ObjectID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnComplete = "reload();" })</h3>                        
                         <b>Имя:</b> @item.ObjCustName<br />

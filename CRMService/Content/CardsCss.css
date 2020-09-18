@@ -3,7 +3,7 @@
     transition: 0.3s;
     border-radius: 5px;
     max-width: 300px;
-    display: flex;
+    display: inline-flex;
     border: 1px solid #AEF7BB;
     height: 350px;
     margin-left: auto;

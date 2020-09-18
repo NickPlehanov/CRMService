@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Dynamic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CRMService.Data.A28 {
     [Table("Object")]
@@ -32,6 +34,26 @@ namespace CRMService.Data.A28 {
         public bool ArmSchedule_ControlDisarm { get; set; }
         public bool ArmSchedule_LaterDisarm { get; set; }
         public bool Disable { get; set; }
+        public int? DeviceTypeID { get; set; }
+
+        //[NotMapped]
+        //public string DeviceTypeName {
+        //    get => _DeviceTypeName;
+        //    set {
+        //        _DeviceTypeName = value;
+        //    }
+        //}
+        //private string _DeviceTypeName {
+        //    get {
+        //        if (DeviceTypeID.HasValue)
+        //            using (DeviceTypeContext deviceTypeContext = new DeviceTypeContext()) {
+        //                return deviceTypeContext.DeviceType.FirstOrDefault(x => x.DeviceTypeID == DeviceTypeID).Name;
+        //            }
+        //        else
+        //            return null;
+        //    }
+        //    set => value = string.IsNullOrEmpty(value.ToString()) ? null : value;
+        //}
 
         [NotMapped]
         public int ObjNumber {

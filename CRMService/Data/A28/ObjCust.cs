@@ -194,6 +194,55 @@ namespace CRMService.Data.A28 {
                 }
             }
         }
+        [NotMapped]
+        public ObjectA28 Object { get; set; }
+        private ObjectA28 _Object {
+            get {
+                using (ObjectContext objectContext = new ObjectContext()) {
+                    if (ObjectID != 0)
+                        if (objectContext.ObjectA28.Any(x => x.ObjectID == ObjectID && x.Disable == false))
+                            return objectContext.ObjectA28.Single(x => x.ObjectID == ObjectID && x.Disable == false);
+                        else
+                            return null;
+                    else
+                        return null;
+                }
+            }
+            set {
+                using (ObjectContext objectContext = new ObjectContext()) {
+                    if (ObjectID != 0) {
+                        value = objectContext.ObjectA28.Single(x => x.ObjectID == ObjectID && x.Disable == false);
+                    }
+                }
+            }
+        }
+
+
+        [NotMapped]
+        public bool ObjectDeleted {
+            get => _ObjectDeleted;
+            set { _ObjectDeleted = value; }
+        }
+        private bool _ObjectDeleted {
+            get {
+                using (ObjectContext objectContext = new ObjectContext()) {
+                    if (ObjectID != 0)
+                        if (objectContext.ObjectA28.Any(x => x.ObjectID == ObjectID && x.Disable == false))
+                            return false;
+                        else
+                            return true;
+                    else
+                        return true;
+                }
+            }
+            set {
+                using (ObjectContext objectContext = new ObjectContext()) {
+                    if (ObjectID != 0) {
+                        value = objectContext.ObjectA28.FirstOrDefault(x => x.ObjectID == ObjectID).RecordDeleted;
+                    }
+                }
+            }
+        }
         //public string NormalizePhone(string param) {
         //    if (!string.IsNullOrEmpty(param))
         //        return param.Replace("-", "").Replace(" ", "").Replace("+", "").ToLower();
