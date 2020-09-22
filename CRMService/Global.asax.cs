@@ -1,6 +1,8 @@
 ﻿using CRMService.Data;
+using CRMService.Data.A28;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -24,8 +26,10 @@ namespace CRMService
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var objectSyncThread = new Thread(ObjectSyncThreadMethod);
-            objectSyncThread.Start();
+            Database.SetInitializer<DeviceTypeContext>(null);
+
+            //var objectSyncThread = new Thread(ObjectSyncThreadMethod);
+            //objectSyncThread.Start();
         }
 
 

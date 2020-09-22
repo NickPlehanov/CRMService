@@ -9,7 +9,6 @@ namespace CRMService
         public Object()
         {
             ObjCust = new HashSet<ObjCust>();
-            ObjExtField = new HashSet<ObjExtField>();
             ObjSchedule = new HashSet<ObjSchedule>();
         }
 
@@ -120,7 +119,6 @@ namespace CRMService
         public virtual DeviceType DeviceType { get; set; }
         public virtual ObjAdmin ObjAdmin { get; set; }
         public virtual ICollection<ObjCust> ObjCust { get; set; }
-        public virtual ICollection<ObjExtField> ObjExtField { get; set; }
         public virtual ICollection<ObjSchedule> ObjSchedule { get; set; }
     }
 }

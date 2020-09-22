@@ -18,12 +18,10 @@ namespace CRMService
 
         public virtual DbSet<DeviceType> DeviceType { get; set; }
         public virtual DbSet<Ep> Ep { get; set; }
-        public virtual DbSet<Epcustomer> Epcustomer { get; set; }
         public virtual DbSet<EventTemp> EventTemp { get; set; }
         public virtual DbSet<ExtField> ExtField { get; set; }
         public virtual DbSet<ObjAdmin> ObjAdmin { get; set; }
         public virtual DbSet<ObjCust> ObjCust { get; set; }
-        public virtual DbSet<ObjExtField> ObjExtField { get; set; }
         public virtual DbSet<ObjSchedule> ObjSchedule { get; set; }
         public virtual DbSet<ObjType> ObjType { get; set; }
         public virtual DbSet<Object> Object { get; set; }
@@ -70,23 +68,6 @@ namespace CRMService
                 entity.Property(e => e.RcfilterInterval).HasColumnName("RCFilterInterval");
 
                 entity.Property(e => e.Title).HasMaxLength(128);
-            });
-
-            modelBuilder.Entity<Epcustomer>(entity =>
-            {
-                entity.HasKey(e => e.RecordId);
-
-                entity.ToTable("EPCustomer");
-
-                entity.HasIndex(e => e.OwnerRecordId);
-
-                entity.HasIndex(e => e.RecordType);
-
-                entity.Property(e => e.RecordId).HasColumnName("RecordID");
-
-                entity.Property(e => e.CustomerGroupId).HasColumnName("CustomerGroupID");
-
-                entity.Property(e => e.OwnerRecordId).HasColumnName("OwnerRecordID");
             });
 
             modelBuilder.Entity<EventTemp>(entity =>
@@ -198,43 +179,6 @@ namespace CRMService
                     .WithMany(p => p.ObjCust)
                     .HasForeignKey(d => d.ObjectId)
                     .HasConstraintName("FK_ObjCust_Object");
-            });
-
-            modelBuilder.Entity<ObjExtField>(entity =>
-            {
-                entity.HasKey(e => e.RecordId);
-
-                entity.HasIndex(e => e.ExtFieldId)
-                    .IncludeProperties(new[] { "ObjectID", "ExtFieldValue" });
-
-                entity.HasIndex(e => e.ExtFiledValueGuid)
-                    .HasName("IX_ObjExtField_GUID")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.ObjectId);
-
-                entity.Property(e => e.RecordId).HasColumnName("RecordID");
-
-                entity.Property(e => e.ExtFieldId).HasColumnName("ExtFieldID");
-
-                entity.Property(e => e.ExtFieldValue).HasMaxLength(255);
-
-                entity.Property(e => e.ExtFiledValueGuid)
-                    .HasColumnName("ExtFiledValueGUID")
-                    .HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.ObjectId).HasColumnName("ObjectID");
-
-                entity.HasOne(d => d.ExtField)
-                    .WithMany(p => p.ObjExtField)
-                    .HasForeignKey(d => d.ExtFieldId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ObjExtField_ExtField");
-
-                entity.HasOne(d => d.Object)
-                    .WithMany(p => p.ObjExtField)
-                    .HasForeignKey(d => d.ObjectId)
-                    .HasConstraintName("FK_ObjExtField_Object");
             });
 
             modelBuilder.Entity<ObjSchedule>(entity =>

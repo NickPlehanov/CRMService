@@ -465,7 +465,7 @@ namespace CRMService.Controllers {
                                         using (DeviceTypeContext deviceTypeContext = new DeviceTypeContext()) {
                                             string DeviceName = null;
                                             if (item.DeviceTypeID.HasValue)
-                                                DeviceName = deviceTypeContext.DeviceType.FirstOrDefault(x => x.DeviceTypeID == item.DeviceTypeID).Name;
+                                                DeviceName = deviceTypeContext.DeviceTypes.FirstOrDefault(x => x.DeviceTypeID == item.DeviceTypeID).Name;
                                             if (!string.IsNullOrEmpty(DeviceName))
                                                 _ExtFields.Add(new _extFields("Оборудование", DeviceName));
                                         }
